@@ -3,20 +3,21 @@
  * to play a console-based, text version of the Connect Four game.
  */
 #include <iostream>
-using namespace std;
+ using namespace std;
 
 #include "ConnectFourBoard.h"
+#include "HumanPlayer.cpp"
 
 // Function prototypes
-void display( ConnectFourBoard board );
+ void display( ConnectFourBoard board );
 
 /*
  *        *************************************
  *        **** DO NOT MODIFY THIS FUNCTION ****
  *        *************************************
  */
-void console()
-{
+ void console()
+ {
   // Create the board and show it for the first time.
   ConnectFourBoard theBoard;
   display( theBoard );
@@ -24,24 +25,7 @@ void console()
   // The game continues until there is a winner or the board is full.
   while( theBoard.getWinner() == ' ' && !theBoard.isFull() )
   {
-    // Show the current player and get a move.
-    int move;
-    cout << "Player " << theBoard.getCurrentPlayer() << ", enter a column (1-7): ";
-    cin >> move;
-
-    // Note: Not all users are CS majors, so they prefer columns 1-7, but we need a
-    // zero-based array index. Thus, subtract one from move in the function call.
-
-    // The makeMove function returns true if it successfully makes a move.
-    // Stay in this loop until a successful move is entered and made.
-    while( !theBoard.makeMove( move - 1 ) )
-    {
-      // The makeMove functions returns true if it successfully makes a move.
-      // Show an error and continue getting moves
-      cout << "Invalid move. Please try again: ";
-      cin >> move;
-    }
-
+    HumanPlayer::move(theBoard.getCurrentPlayer());
     // A move was successfully made, so change players and re-draw the board.
     theBoard.changePlayers();
     display( theBoard );
@@ -59,11 +43,7 @@ void console()
   }
 }
 
-/*
- *        *************************************
- *        **** DO NOT MODIFY THIS FUNCTION ****
- *        *************************************
- */
+
 void display( ConnectFourBoard board )
 {
   // Print a bunch of newline characters so the board is
@@ -74,7 +54,7 @@ void display( ConnectFourBoard board )
 
   // Draw column headers (starting at 1 because not all
   // Connect Four players are Computer Science majors).
-  cout << " ";
+    cout << " ";
   for( int c = 1; c <= ConnectFourBoard::COLS; c++ )
   {
     cout << " " << c << "  ";

@@ -8,9 +8,9 @@
  *        ****   DO NOT MODIFY THIS FILE   ****
  *        *************************************
  */
-class ConnectFourBoard
-{
-  public:
+ class ConnectFourBoard
+ {
+ public:
     // The dimensions of a standard Connect Four board.
     static const int ROWS = 6;
     static const int COLS = 7;
@@ -37,7 +37,7 @@ class ConnectFourBoard
     // or a space if the board location is currently unoccupied.
     char getPlayerAt( int row, int col ) const;
 
-  private:
+private:
     // Two dimensional array of characters represents the current state of the board.
     char board[ 6 ][ 7 ];
     // The board keeps track of the current player.
