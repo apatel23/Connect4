@@ -6,7 +6,7 @@
  using namespace std;
 
 #include "ConnectFourBoard.h"
-#include "HumanPlayer.cpp"
+#include "HumanPlayer.h"
 
 // Function prototypes
  void display( ConnectFourBoard board );
@@ -25,7 +25,7 @@
   // The game continues until there is a winner or the board is full.
   while( theBoard.getWinner() == ' ' && !theBoard.isFull() )
   {
-    HumanPlayer::move(theBoard.getCurrentPlayer());
+    HumanPlayer::move(theBoard.getCurrentPlayer(), theBoard);
     // A move was successfully made, so change players and re-draw the board.
     theBoard.changePlayers();
     display( theBoard );
