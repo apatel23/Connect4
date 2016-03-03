@@ -5,8 +5,8 @@
 #include <iostream>
  using namespace std;
 
-#include "ConnectFourBoard.h"
-#include "HumanPlayer.h"
+#include "data/ConnectFourBoard.h"
+#include "data/HumanPlayer.h"
 
 // Function prototypes
  void display( ConnectFourBoard board );
