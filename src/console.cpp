@@ -25,8 +25,13 @@
   // The game continues until there is a winner or the board is full.
   while( theBoard.getWinner() == ' ' && !theBoard.isFull() )
   {
+    if( theBoard.getCurrentPlayer() == 'X') {
     HumanPlayer::move(theBoard.getCurrentPlayer(), theBoard);
     // A move was successfully made, so change players and re-draw the board.
+    } else {
+    HumanPlayer::move(theBoard.getCurrentPlayer(), theBoard);
+    // A move was successfully made, so change players and re-draw the board.
+    }
     theBoard.changePlayers();
     display( theBoard );
   }
