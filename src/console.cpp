@@ -7,6 +7,7 @@
 
 #include "data/ConnectFourBoard.h"
 #include "data/HumanPlayer.h"
+#include "data/ComputerPlayer.h"
 
 // Function prototypes
  void display( ConnectFourBoard board );
@@ -29,7 +30,7 @@
     HumanPlayer::move(theBoard.getCurrentPlayer(), theBoard);
     // A move was successfully made, so change players and re-draw the board.
     } else {
-    HumanPlayer::move(theBoard.getCurrentPlayer(), theBoard);
+    ComputerPlayer::move(theBoard.getCurrentPlayer(), theBoard);
     // A move was successfully made, so change players and re-draw the board.
     }
     theBoard.changePlayers();
