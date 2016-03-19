@@ -18,8 +18,6 @@ void Game::play_game(){
 
 	while( theBoard->getWinner() == ' ' && !theBoard->isFull() ) {
 
-
-
 		currentPlayer->move(theBoard);
 
 		changePlayers();

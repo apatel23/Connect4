@@ -3,10 +3,6 @@
 /*
  * This class represents the logic required to play a game of Connect Four.
  * 
- * 
- *        *************************************
- *        ****   DO NOT MODIFY THIS FILE   ****
- *        *************************************
  */
  struct ConnectFourBoard
  {
@@ -26,18 +22,9 @@
     // This function returns 'X' or 'O' if there is a winner on the board; ' ' otherwise.
     char getWinner() const;
 
-    // This function changes the current player.
-    // void changePlayers();
-
-    // This function retrieves the current player.
-    // char getCurrentPlayer() const;
-
-    // This function retrieves the player at the indicated position of the board,
-    // or a space if the board location is currently unoccupied.
+    // gets the location of the current player
     char getPlayerAt( int row, int col ) const;
 
     // Two dimensional array of characters represents the current state of the board.
     char board[ ROWS ][ COLS ];
-    // The board keeps track of the current player.
-    // char currentPlayer;
 };

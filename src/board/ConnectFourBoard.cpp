@@ -120,21 +120,6 @@ using namespace std;
 }
 
 
-
-
-
-/* void ConnectFourBoard::changePlayers() {
-
- 	currentPlayer = ( currentPlayer == 'X' ) ? 'O' : 'X';
-
- }
-
-
- char ConnectFourBoard::getCurrentPlayer() const {
- 	return currentPlayer;
- }
-
-*/
  char ConnectFourBoard::getPlayerAt( int row, int col ) const {
   // Make sure not to go out of bounds of the array.
  	if( row >= 0 && row < ROWS && col >= 0 && col < COLS )
@@ -162,6 +147,4 @@ using namespace std;
  		}
  	}
 
-  // Player X always goes first.
-  // currentPlayer = 'X';
  }
