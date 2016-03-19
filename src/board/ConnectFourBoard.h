@@ -8,9 +8,8 @@
  *        ****   DO NOT MODIFY THIS FILE   ****
  *        *************************************
  */
- class ConnectFourBoard
+ struct ConnectFourBoard
  {
- public:
     // The dimensions of a standard Connect Four board.
     static const int ROWS = 6;
     static const int COLS = 7;
@@ -19,7 +18,7 @@
     ConnectFourBoard();
 
     // Makes a move in the indicated column on the Connect Four board, returning true if successful.
-    bool makeMove( int col );
+    bool makeMove( int col , char currentPlayer);
 
     // This function returns true if the board is full; false otherwise.
     bool isFull() const;
@@ -28,18 +27,17 @@
     char getWinner() const;
 
     // This function changes the current player.
-    void changePlayers();
+    // void changePlayers();
 
     // This function retrieves the current player.
-    char getCurrentPlayer() const;
+    // char getCurrentPlayer() const;
 
     // This function retrieves the player at the indicated position of the board,
     // or a space if the board location is currently unoccupied.
     char getPlayerAt( int row, int col ) const;
 
-private:
     // Two dimensional array of characters represents the current state of the board.
-    char board[ 6 ][ 7 ];
+    char board[ ROWS ][ COLS ];
     // The board keeps track of the current player.
-    char currentPlayer;
+    // char currentPlayer;
 };

@@ -1,10 +1,9 @@
 #include "HumanPlayer.h"
-#include "ConnectFourBoard.h"
 #include <iostream>
 
 using namespace std;
 
-void HumanPlayer::move(char Player, ConnectFourBoard &b) {
+void HumanPlayer::move(ConnectFourBoard *b) {
 	// Show the current player and get a move.
     int move;
     cout << "Player " << Player  << ", enter a column (1-7): ";
@@ -15,7 +14,7 @@ void HumanPlayer::move(char Player, ConnectFourBoard &b) {
 
     // The makeMove function returns true if it successfully makes a move.
     // Stay in this loop until a successful move is entered and made.
-    while( !b.makeMove( move - 1 ) )
+    while( !b->makeMove( move - 1 , Player) )
     {
       // The makeMove functions returns true if it successfully makes a move.
       // Show an error and continue getting moves
@@ -23,4 +22,8 @@ void HumanPlayer::move(char Player, ConnectFourBoard &b) {
       cin >> move;
     }
 
+}
+
+HumanPlayer::HumanPlayer(char Player, ConnectFourBoard *b) {
+  this->Player = Player;
 }

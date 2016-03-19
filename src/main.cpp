@@ -20,7 +20,7 @@
 #include <ctime>      // To use the system clock
 using namespace std;  // We will almost always use the standard namespace.
 
-#include "data/ConnectFourBoard.h"
+#include "game/game.h"
 
 // Function prototypes
 void gooey();
@@ -28,7 +28,10 @@ void console();
 
 int main()
 {
-	console();
+	//console();
+	//Game::play_game();
+	Game g;
+	g.play_game();
 
 	return EXIT_SUCCESS;
 }

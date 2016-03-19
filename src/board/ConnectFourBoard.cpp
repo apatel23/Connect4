@@ -10,7 +10,7 @@ using namespace std;
  * 
  * The function returns true if a valid move was made; false otherwise;
  */
- bool ConnectFourBoard::makeMove( int col )
+ bool ConnectFourBoard::makeMove( int col , char currentPlayer)
  {
  	if ( col >= 0 && col < COLS )
  	{
@@ -34,8 +34,7 @@ using namespace std;
  * Since all moves go to the lowest unoccupied row, the function only
  * needs to look at the top row of each column for an empty space.
  */
- bool ConnectFourBoard::isFull() const
- {
+ bool ConnectFourBoard::isFull() const {
  	for ( int i = 0 ; i < COLS ; i++ )
  	{
  		if ( board[ 0 ][i] == ' ' )
@@ -55,8 +54,7 @@ using namespace std;
  * If it finishes all of these tests without finding four consecutive locations
  * that match, it will return false.
  */
- char ConnectFourBoard::getWinner() const
- {
+ char ConnectFourBoard::getWinner() const {
  	for( int r = 0; r < ROWS; r++ )
  	{
  		for( int c = 0; c < COLS - 3; c++ )
@@ -121,31 +119,23 @@ using namespace std;
   return ' ';  // Didn't find a winner so return a space.
 }
 
-/*
- * This function changes the current player.
- */
- void ConnectFourBoard::changePlayers()
- {
+
+
+
+
+/* void ConnectFourBoard::changePlayers() {
 
  	currentPlayer = ( currentPlayer == 'X' ) ? 'O' : 'X';
 
  }
 
-/*
- * This function retrieves the current player.
- */
- char ConnectFourBoard::getCurrentPlayer() const
- {
+
+ char ConnectFourBoard::getCurrentPlayer() const {
  	return currentPlayer;
  }
 
-/*
- * This function retrieves the player at the indicated position of the board,
- * or a space if the board location is currently unoccupied.
- * The function must ensure row,col is a valid board location.
- */
- char ConnectFourBoard::getPlayerAt( int row, int col ) const
- {
+*/
+ char ConnectFourBoard::getPlayerAt( int row, int col ) const {
   // Make sure not to go out of bounds of the array.
  	if( row >= 0 && row < ROWS && col >= 0 && col < COLS )
  	{
@@ -157,11 +147,12 @@ using namespace std;
  	return '!';
  }
 
+
+
 /*
  * Constructs a new Connect Four Board object, ready for a new game.
  */
- ConnectFourBoard::ConnectFourBoard()
- {
+ ConnectFourBoard::ConnectFourBoard() {
   // Initialize the board array to all spaces.
  	for( int r = 0; r < ROWS; r++ )
  	{
@@ -172,5 +163,5 @@ using namespace std;
  	}
 
   // Player X always goes first.
- 	currentPlayer = 'X';
+  // currentPlayer = 'X';
  }
