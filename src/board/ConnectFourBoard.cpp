@@ -2,6 +2,18 @@
 
 using namespace std;
 
+
+
+ void ConnectFourBoard::set_player(bool current_player) {
+ 	if( current_player ) {
+ 		c_player = 'X';
+ 	}else {
+ 		c_player = 'O';
+ 	}
+ }
+
+
+
 /*
  * Makes a move in the indicated column on the Connect Four board.
  * 
@@ -10,15 +22,16 @@ using namespace std;
  * 
  * The function returns true if a valid move was made; false otherwise;
  */
- bool ConnectFourBoard::makeMove( int col , char currentPlayer)
+ bool ConnectFourBoard::makeMove( int col, bool current_player)
  {
+ 	set_player( current_player );
  	if ( col >= 0 && col < COLS )
  	{
  		for ( int i = ROWS - 1; i >= 0 ; --i)
  		{
  			if ( board[ i] [col ] == ' ' )
  			{
- 				board[i][col] = currentPlayer;
+ 				board[i][col] = c_player;
  				return true;
  			}
  		}

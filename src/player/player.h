@@ -5,7 +5,7 @@ using namespace std;
 
 struct Player {
 
-	char Player;
+	bool Player;
 
 	virtual void move (ConnectFourBoard * b) = 0;
 

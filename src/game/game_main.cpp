@@ -5,8 +5,8 @@ using namespace std;
 
 void Game::construct_game(){
 	theBoard = new ConnectFourBoard;
-	playerone = new ComputerPlayer('X', theBoard);
-	playertwo = new HumanPlayer('O', theBoard);
+	playerone = new ComputerPlayer( true, theBoard);
+	playertwo = new HumanPlayer( false, theBoard);
 
 	currentPlayer = playerone;
 }
@@ -24,7 +24,7 @@ void Game::play_game(){
 		display_board();
 	}
 	changePlayers();
-	char winner = currentPlayer->Player;
+	char winner = theBoard->getWinner();
 	if( winner == ' ' )
 	{
 		cout << "Tie game." << endl;

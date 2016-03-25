@@ -24,6 +24,6 @@ void HumanPlayer::move(ConnectFourBoard *b) {
 
 }
 
-HumanPlayer::HumanPlayer(char Player, ConnectFourBoard *b) {
+HumanPlayer::HumanPlayer(bool Player, ConnectFourBoard *b) {
   this->Player = Player;
 }
