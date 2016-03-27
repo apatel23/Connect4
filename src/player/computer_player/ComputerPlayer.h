@@ -8,7 +8,9 @@ public:
 	ComputerPlayer(bool Player, ConnectFourBoard *b);
 	float getUtility(int column);
 	Node * root;
-	int AlphaBeta(Node* node, ConnectFourBoard* b, int depth, int Alpha, int Beta, bool MaxPlayer);
+	int AlphaBeta(Node* node, ConnectFourBoard b, int depth, int Alpha, int Beta, bool MaxPlayer);
+	void setDepth(int depth);
+	void runAlgorithm();
 
 private:
 	ConnectFourBoard board;
