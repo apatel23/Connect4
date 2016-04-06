@@ -46,6 +46,11 @@ void ComputerPlayer::setDepth(int depth) {
 
 
 void ComputerPlayer::checkNode(Node * node, ConnectFourBoard b, bool ply) {
+
+
+  if( node->nodes == nullptr ) {
+    return;
+  }
   
   for( size_t a = 0; a < COLS; a++) {
     if( node->nodes[a] != nullptr) {
@@ -53,7 +58,6 @@ void ComputerPlayer::checkNode(Node * node, ConnectFourBoard b, bool ply) {
     }
   }
   cout << endl;
-
 
 
 
