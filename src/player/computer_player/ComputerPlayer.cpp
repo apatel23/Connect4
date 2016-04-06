@@ -9,7 +9,7 @@ using namespace std;
 
 int win = 100;
 int loss = -100;
-const int DEPTH_TOTAL = 10;
+const int DEPTH_TOTAL = 8;
 const int ROWS = 6;
 const int COLS = 7;
 
@@ -154,10 +154,11 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       v = max(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, false) + result);
       Alpha = max(Alpha, v);
       
-      
+      /*
       if( Beta < Alpha) {
         break;
       }
+      */
       
       
       
@@ -188,10 +189,11 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       v = min(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, true) + result);
       Beta = min(Beta, v);
       
-      
+      /*
       if( Beta < Alpha) {
         break;
       }
+      */
       
       
     }
