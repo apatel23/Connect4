@@ -9,7 +9,7 @@ using namespace std;
 
 int win = 100;
 int loss = -100;
-const int DEPTH_TOTAL = 8;
+const int DEPTH_TOTAL = 10;
 const int ROWS = 6;
 const int COLS = 7;
 
@@ -121,10 +121,27 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
   ConnectFourBoard bo;
 
   // if at the end of the search
-  if ( depth_run == 0 ) {
-    node->data = getHeuristic(b);
-    return node->data;
+  result = getHeuristic(b);
+
+  if( MaxPlayer ) {
+    if( result < 0) {
+      node->data = result;
+      return result;
+    }
+  } else {
+    if(result > 0 ) {
+      node->data = result;
+      return result;
+    }
   }
+
+  if ( depth_run == 0 ) {
+    node->data = result;
+    return result;
+  }
+  result = 0;
+
+
 
   node->addNode(MaxPlayer);
 
