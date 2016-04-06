@@ -9,12 +9,7 @@ void Node::addNode(bool Max) {
 		nodes = new Node*[7];
 		for( int i = 0; i < 7; i++) {
 			nodes[i] = new Node;
-			if( Max ) {
-				nodes[i]->data = -100;
-			}else {
-				nodes[i]->data = 100;
-			}
-			//nodes[i]->data = 0;
+			nodes[i]->data = 0;
 		}
 	}
 }

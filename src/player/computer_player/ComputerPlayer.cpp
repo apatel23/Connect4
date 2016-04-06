@@ -115,76 +115,11 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
   bool foundWinner = false;
   int result = 0;
   ConnectFourBoard bo;
-  char winner = ' ';
-  /*
-  for( i = 0; i < 7; i++) {
-    bo = b;
-    madeMove = bo.makeMove(i, MaxPlayer);
-    // check to see if a move was made it would be false if a certain column is full
-    if( !madeMove ) {
-      continue;
-    }
-    // check to see if found winner
-    if ( bo.getWinner() != ' ') {
-      winner = bo.getWinner();
-      foundWinner = true;
-      break;
-    }
-  }
-  */
-
-    if ( b.getWinner() != ' ') {
-      winner = b.getWinner();
-      foundWinner = true;
-    }
-
-
-  // checks to find winner
-  if( foundWinner ) {
-    //logger_node::print_board(b);
-    if (MaxPlayer) {
-      node->data = loss;
-      return loss;
-    } else {
-      node->data = win;
-      return win;
-    }
-  }
-
-  result = getHeuristic(b);
-  if( result != 0) {
-      if( MaxPlayer) {
-      node->data = -1 *result;
-      return -1 * result;
-    } else {
-      node->data =  result;
-      return result;
-    }
-  }
-
-
 
   // if at the end of the search
   if ( depth_run == 0 ) {
-    // result = getHeuristic(b);
-    //return result;
-    if( result == 0) {
-      if( MaxPlayer ) {
-        node->data = 0;
-        return 0;
-      } else {
-        node->data = 0;
-        return 0;
-      }
-    }
-    if( MaxPlayer) {
-      node->data = -1 *result;
-      return -1 * result;
-    } else {
-      node->data = result;
-      return result;
-    }
-    return result;
+    //node->data = getHeuristic(b);
+    return 0;//node->data;
   }
 
   node->addNode(MaxPlayer);
@@ -192,6 +127,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
   int v;
   if( MaxPlayer ) {
     v = loss;
+
     for( i = 0; i < COLS; i++) {
     bo = b;
     madeMove = bo.makeMove(i, MaxPlayer);
@@ -199,16 +135,26 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
     if( !madeMove ) {
       continue;
     }
-      v = max(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, false));
+
+    if ( bo.getWinner() != ' ') {
+      foundWinner = true;
+    }
+
+    if( foundWinner ) {
+      node->nodes[i]->data = 100;
+      v = 100;
+      break;
+    }
+
+      result = getHeuristic(bo);
+
+      v = max(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, false) + result);
       Alpha = max(Alpha, v);
       
-      /*
+      
       if( Beta < Alpha) {
         break;
       }
-      */
-      
-      
       
       
     }
@@ -223,17 +169,26 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       if( !madeMove ) {
         continue;
       }
-      v = min(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, true));
+
+    if ( bo.getWinner() != ' ') {
+      foundWinner = true;
+    }
+
+    if( foundWinner ) {
+      node->nodes[i]->data = -100;
+      v = -100;
+      break;
+    }
+
+
+      result = getHeuristic(bo);
+      v = min(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, true) + result);
       Beta = min(Beta, v);
       
-      /*
+      
       if( Beta < Alpha) {
         break;
       }
-      */
-      
-      
-      
       
     }
     node->data = v;
@@ -248,12 +203,10 @@ void ComputerPlayer::runAlgorithm(){
   cout << "Jerry" << endl; 
 }
 
-
-
-
 int getresult(char results []) {
 
   int score = 0;
+
 
   if ( results[0] == results[1] && results[0] == results[2] && results[3] == ' ' && results[0] != ' ') {
     score = 3;
@@ -291,7 +244,6 @@ int getresult(char results []) {
 
   return score;
 }
-
 
 int ComputerPlayer::getHeuristic( ConnectFourBoard bo) {
 
