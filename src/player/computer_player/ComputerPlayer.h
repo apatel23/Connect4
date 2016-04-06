@@ -12,7 +12,7 @@ public:
 	int AlphaBeta(Node* node, ConnectFourBoard b, int depth, int Alpha, int Beta, bool MaxPlayer);
 	void setDepth(int depth);
 	void runAlgorithm();
-	void checkNode(Node * node);
+	void checkNode(Node * node, ConnectFourBoard b, bool ply);
 
 private:
 	ConnectFourBoard board;

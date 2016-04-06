@@ -9,7 +9,7 @@ using namespace std;
 
 int win = 100;
 int loss = -100;
-const int DEPTH_TOTAL = 12;
+const int DEPTH_TOTAL = 8;
 const int ROWS = 6;
 const int COLS = 7;
 
@@ -45,7 +45,7 @@ void ComputerPlayer::setDepth(int depth) {
 }
 
 
-void ComputerPlayer::checkNode(Node * node) {
+void ComputerPlayer::checkNode(Node * node, ConnectFourBoard b, bool ply) {
   
   for( size_t a = 0; a < COLS; a++) {
     if( node->nodes[a] != nullptr) {
@@ -54,6 +54,11 @@ void ComputerPlayer::checkNode(Node * node) {
   }
   cout << endl;
 
+
+
+
+
+
   int i;
   cout << "Enter what node values you would like to see" << endl;
   cin >> i;
@@ -61,8 +66,14 @@ void ComputerPlayer::checkNode(Node * node) {
   if( i == -1) {
     return;
   }
+
+
+  b.makeMove(i , ply);
+  logger_node::print_board(b);
+
+
   cout << "Node " << i << endl;
-  checkNode(node->nodes[i]);
+  checkNode(node->nodes[i], b, !ply);
 }
 
   // Defualt Constructor
@@ -72,7 +83,7 @@ ComputerPlayer::ComputerPlayer(bool Player, ConnectFourBoard *b) {
   board = *b;
   setDepth(DEPTH_TOTAL);
   runAlgorithm();
-  checkNode(root);
+  checkNode(root, board, true);
 }
 
 void addNode(Node * node, int i, bool MaxPlayer, bool winner) {
@@ -132,42 +143,47 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
   if( foundWinner ) {
     //logger_node::print_board(b);
     if (MaxPlayer) {
-      if( winner == 'X'){
-        node->data = win;
-        return win;
-      }else {
-        node->data = loss;
-        return loss;
-      }
-      //return win;
+      node->data = loss;
+      return loss;
     } else {
-      if( winner == 'X'){
-        node->data = win;
-        return win;
-      }else {
-        node->data = loss;
-        return loss;
-      }
-      //return loss;
+      node->data = win;
+      return win;
     }
   }
 
+  result = getHeuristic(b);
+  if( result != 0) {
+      if( MaxPlayer) {
+      node->data = -1 *result;
+      return -1 * result;
+    } else {
+      node->data =  result;
+      return result;
+    }
+  }
+
+
+
   // if at the end of the search
   if ( depth_run == 0 ) {
-    result = getHeuristic(b);
+    // result = getHeuristic(b);
     //return result;
     if( result == 0) {
       if( MaxPlayer ) {
-        node->data = win;
-        return win;
+        node->data = 0;
+        return 0;
       } else {
-        node->data = loss;
-        return loss;
+        node->data = 0;
+        return 0;
       }
     }
-    //cout << MaxPlayer << endl;
-    //cout << result;
-    //logger_node::print_board(b);
+    if( MaxPlayer) {
+      node->data = -1 *result;
+      return -1 * result;
+    } else {
+      node->data = result;
+      return result;
+    }
     return result;
   }
 
@@ -186,9 +202,13 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       v = max(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, false));
       Alpha = max(Alpha, v);
       
-      if( Beta <= Alpha) {
+      /*
+      if( Beta < Alpha) {
         break;
       }
+      */
+      
+      
       
       
     }
@@ -206,10 +226,13 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       v = min(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, true));
       Beta = min(Beta, v);
       
-      
-      if( Beta <= Alpha) {
+      /*
+      if( Beta < Alpha) {
         break;
       }
+      */
+      
+      
       
       
     }
@@ -248,6 +271,7 @@ int getresult(char results []) {
     score = 3;
   }
 
+
   if( score > 0 ) {
     if( results[0] == ' '){
       if( results[1] == 'X'){
@@ -263,6 +287,7 @@ int getresult(char results []) {
       }
     }
   }
+
 
   return score;
 }

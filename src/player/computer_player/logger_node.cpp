@@ -12,7 +12,7 @@ void logger_node::print_board(ConnectFourBoard board){
   // Draw column headers (starting at 1 because not all
   // Connect Four players are Computer Science majors).
     cout << " ";
-  for( int c = 1; c <= ConnectFourBoard::COLS; c++ )
+  for( int c = 0; c < ConnectFourBoard::COLS; c++ )
   {
     cout << " " << c << "  ";
   }
