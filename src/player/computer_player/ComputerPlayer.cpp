@@ -9,7 +9,7 @@ using namespace std;
 
 int win = 100;
 int loss = -100;
-const int DEPTH_TOTAL = 10;
+const int DEPTH_TOTAL = 12;
 const int ROWS = 6;
 const int COLS = 7;
 
@@ -104,84 +104,78 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
   bool foundWinner = false;
   int result = 0;
   ConnectFourBoard bo;
-  //prints(1);
+  char winner = ' ';
+  /*
   for( i = 0; i < 7; i++) {
     bo = b;
     madeMove = bo.makeMove(i, MaxPlayer);
-    //prints(1);
     // check to see if a move was made it would be false if a certain column is full
     if( !madeMove ) {
       continue;
     }
-    // logger_node::print_board(bo);
     // check to see if found winner
     if ( bo.getWinner() != ' ') {
+      winner = bo.getWinner();
       foundWinner = true;
-      addNode(node, i, MaxPlayer, true);
       break;
-    } else {
-      // addNode(node, i, MaxPlayer, false);
-      result = getHeuristic(bo);
-      if( result != 0 ) {
-        //logger_node::print_board(bo);
-        node->addNode(i, result);
-      }else {
-        addNode(node, i, MaxPlayer, false);
-      }
     }
-
-
   }
+  */
+
+    if ( b.getWinner() != ' ') {
+      winner = b.getWinner();
+      foundWinner = true;
+    }
 
 
   // checks to find winner
   if( foundWinner ) {
-    //logger_node::print_board(bo);
+    //logger_node::print_board(b);
     if (MaxPlayer) {
-      return 1;
+      if( winner == 'X'){
+        node->data = win;
+        return win;
+      }else {
+        node->data = loss;
+        return loss;
+      }
+      //return win;
     } else {
-      return -1;
+      if( winner == 'X'){
+        node->data = win;
+        return win;
+      }else {
+        node->data = loss;
+        return loss;
+      }
+      //return loss;
     }
   }
 
-/*
-  int result = getHeuristic(bo);
-
-  if( result != 0 ) {
-    logger_node::print_board(bo);
-    return result;
-  }
-*/
-
-    
-  //prints(2);
   // if at the end of the search
   if ( depth_run == 0 ) {
-  //prints(2);
-    /*
-    if (MaxPlayer) {
-      return 1;
-    } else {
-      return -1;
+    result = getHeuristic(b);
+    //return result;
+    if( result == 0) {
+      if( MaxPlayer ) {
+        node->data = win;
+        return win;
+      } else {
+        node->data = loss;
+        return loss;
+      }
     }
-    */
-  
-
-
-    if (MaxPlayer) {
-      return 0;
-    } else {
-      return 0;
-    }
-
+    //cout << MaxPlayer << endl;
+    //cout << result;
+    //logger_node::print_board(b);
+    return result;
   }
-  // cout << "Tommy" << endl;
-  //prints(1);
 
+  node->addNode(MaxPlayer);
 
   int v;
   if( MaxPlayer ) {
-    v = -1;
+    v = loss;
     for( i = 0; i < COLS; i++) {
     bo = b;
     madeMove = bo.makeMove(i, MaxPlayer);
@@ -191,16 +185,17 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
     }
       v = max(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, false));
       Alpha = max(Alpha, v);
+      
       if( Beta <= Alpha) {
         break;
       }
+      
+      
     }
-    // cout << "Max";
-    // cout << depth_run << endl;
     node->data = v;
     return v;
   } else {
-    v = 1;
+    v = win;
     for( i = 0; i < COLS; i++) {
       bo = b;
       madeMove = bo.makeMove(i, MaxPlayer);
@@ -208,17 +203,16 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       if( !madeMove ) {
         continue;
       }
-      // cout << "ali" << endl;
-      // cout << depth_run << endl;
       v = min(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, true));
-      //cout << "dan" << endl;
       Beta = min(Beta, v);
+      
+      
       if( Beta <= Alpha) {
         break;
       }
+      
+      
     }
-    // cout << "Min";
-    // cout << depth_run << endl;
     node->data = v;
     return v; 
   }
@@ -227,7 +221,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
 
 void ComputerPlayer::runAlgorithm(){
   cout << "Tom" << endl;
-  AlphaBeta(root, board, depth - 1, -1, 1, true );
+  root->data = AlphaBeta(root, board, depth - 1, loss, win, true );
   cout << "Jerry" << endl; 
 }
 
@@ -257,15 +251,15 @@ int getresult(char results []) {
   if( score > 0 ) {
     if( results[0] == ' '){
       if( results[1] == 'X'){
-        return score;
+        return score ;//* -1;
       }else{
-        score = score * -1;
+        return score * -1;
       }
     }else{
       if( results[0] == 'X'){
-        return score;
+        return score  ;//* -1;
       }else{
-        score = score * -1;
+        return score * -1;
       }
     }
   }

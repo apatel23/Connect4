@@ -7,5 +7,8 @@ struct Node {
 	double data;
 	bool explored = false;
 	Node();
+
+	void addNode(bool type);
 	void addNode(int col, double value);
+
 };
