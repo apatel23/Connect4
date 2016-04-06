@@ -9,29 +9,27 @@ using namespace std;
 
 int win = 100;
 int loss = -100;
-const int DEPTH_TOTAL = 10;
+const int DEPTH_TOTAL = 8;
 const int ROWS = 6;
 const int COLS = 7;
 
 void ComputerPlayer::move(ConnectFourBoard * b) {
-	// Show the current player and get a move.
-  int move;
-  cout << "Player " << Player  << ", enter a column (1-7): ";
-  cin >> move;
 
-    // Note: Not all users are CS majors, so they prefer columns 1-7, but we need a
-    // zero-based array index. Thus, subtract one from move in the function call.
-
-    // The makeMove function returns true if it successfully makes a move.
-    // Stay in this loop until a successful move is entered and made.
-  while( !b->makeMove( move - 1, Player ) )
-  {
-      // The makeMove functions returns true if it successfully makes a move.
-      // Show an error and continue getting moves
-    cout << "Invalid move. Please try again: ";
-    cin >> move;
+  if( firstMove ) {
+    b->makeMove(3, Player);
+    firstMove = false;
+    return;
   }
 
+
+  board = *b;
+  Node * nn = new Node;
+  runAlgorithm( nn );
+  //checkNode(nn, board, true);
+  int move = findBestnode(nn);
+  cout << "Will make the best move with the following " << move << endl;
+  b->makeMove(move, Player);
+  //cout << "Will make the best move with the following " << move << endl;
 }
   // return the utility of the given move
 float ComputerPlayer::getUtility(int column) {
@@ -43,6 +41,22 @@ float ComputerPlayer::getUtility(int column) {
 void ComputerPlayer::setDepth(int depth) {
   this->depth = depth;
 }
+
+
+int ComputerPlayer::findBestnode(Node * n) {
+  int a = 0;
+  double max = -200;
+  for(int i = 0; i < 7; i++) {
+
+    if(n->nodes[i]->data > max){
+      max = n->nodes[i]->data;
+      a = i;
+    }
+  }
+
+  return a;
+}
+
 
 
 void ComputerPlayer::checkNode(Node * node, ConnectFourBoard b, bool ply) {
@@ -58,12 +72,8 @@ void ComputerPlayer::checkNode(Node * node, ConnectFourBoard b, bool ply) {
     }
   }
   cout << endl;
-
-
-
-
-
   int i;
+  cout << "Best node: " << findBestnode(node) << endl;
   cout << "Enter what node values you would like to see" << endl;
   cin >> i;
   cin.ignore();
@@ -86,9 +96,12 @@ ComputerPlayer::ComputerPlayer(bool Player, ConnectFourBoard *b) {
   root = new Node;
   board = *b;
   setDepth(DEPTH_TOTAL);
-  runAlgorithm();
-  checkNode(root, board, true);
+  //runAlgorithm(root);
+  //n = root;
+  //checkNode(root, board, true);
 }
+
+
 
 void addNode(Node * node, int i, bool MaxPlayer, bool winner) {
   if(winner) {
@@ -103,9 +116,6 @@ void addNode(Node * node, int i, bool MaxPlayer, bool winner) {
 }
 
 
-void prints(int i) {
-  cout << i << endl;
-}
 
 int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, int Alpha, int Beta, bool MaxPlayer) {
 
@@ -122,7 +132,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
 
   // if at the end of the search
   result = getHeuristic(b);
-
+  /*
   if( MaxPlayer ) {
     if( result < 0) {
       node->data = result;
@@ -134,6 +144,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       return result;
     }
   }
+  */
 
   if ( depth_run == 0 ) {
     node->data = result;
@@ -154,6 +165,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
     madeMove = bo.makeMove(i, MaxPlayer);
     // check to see if a move was made it would be false if a certain column is full
     if( !madeMove ) {
+      node->nodes[i]->data = -200;
       continue;
     }
 
@@ -172,7 +184,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       break;
     }
 
-      v = max(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, false) + result);
+      v = max(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, false) /* + result */);
       Alpha = max(Alpha, v);
       
       /*
@@ -180,6 +192,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
         break;
       }
       */
+      
       
       
       
@@ -193,6 +206,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       madeMove = bo.makeMove(i, MaxPlayer);
       // check to see if a move was made it would be false if a certain column is full
       if( !madeMove ) {
+        node->nodes[i]->data = 200;
         continue;
       }
 
@@ -207,7 +221,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       break;
     }
 
-      v = min(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, true) + result);
+      v = min(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, true) /*+ result */);
       Beta = min(Beta, v);
       
       /*
@@ -217,6 +231,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       */
       
       
+      
     }
     node->data = v;
     return v; 
@@ -224,9 +239,11 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
 
 }
 
-void ComputerPlayer::runAlgorithm(){
+
+
+void ComputerPlayer::runAlgorithm(Node * b){
   cout << "Tom" << endl;
-  root->data = AlphaBeta(root, board, depth - 1, loss, win, true );
+  root->data = AlphaBeta(b, board, depth - 1, loss, win, true );
   cout << "Jerry" << endl; 
 }
 

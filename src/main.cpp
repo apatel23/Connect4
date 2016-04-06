@@ -25,9 +25,9 @@ int main()
 	//console();
 	//Game::play_game();
 	Game g;
-	g.construct_game();
+	//g.construct_game();
 	cout << "Bob" << endl;
-	//g.play_game();
+	g.play_game();
 
 	return EXIT_SUCCESS;
 }

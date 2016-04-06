@@ -14,7 +14,7 @@ void Game::construct_game(){
 void Game::play_game(){
 	//construct the game
 	construct_game();
-	display_board();
+	//display_board();
 
 	while( theBoard->getWinner() == ' ' && !theBoard->isFull() ) {
 
