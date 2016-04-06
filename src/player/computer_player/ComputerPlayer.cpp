@@ -9,7 +9,7 @@ using namespace std;
 
 int win = 100;
 int loss = -100;
-const int DEPTH_TOTAL = 8;
+const int DEPTH_TOTAL = 10;
 const int ROWS = 6;
 const int COLS = 7;
 
@@ -118,8 +118,8 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
 
   // if at the end of the search
   if ( depth_run == 0 ) {
-    //node->data = getHeuristic(b);
-    return 0;//node->data;
+    node->data = getHeuristic(b);
+    return node->data;
   }
 
   node->addNode(MaxPlayer);
@@ -140,13 +140,16 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       foundWinner = true;
     }
 
+    result = getHeuristic(bo);
+    if ( result > 100) {
+      foundWinner = true;
+    }
+
     if( foundWinner ) {
       node->nodes[i]->data = 100;
       v = 100;
       break;
     }
-
-      result = getHeuristic(bo);
 
       v = max(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, false) + result);
       Alpha = max(Alpha, v);
@@ -155,6 +158,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       if( Beta < Alpha) {
         break;
       }
+      
       
       
     }
@@ -170,7 +174,8 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
         continue;
       }
 
-    if ( bo.getWinner() != ' ') {
+    result = getHeuristic(bo);
+    if ( result < -100) {
       foundWinner = true;
     }
 
@@ -180,8 +185,6 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       break;
     }
 
-
-      result = getHeuristic(bo);
       v = min(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, true) + result);
       Beta = min(Beta, v);
       
@@ -189,6 +192,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       if( Beta < Alpha) {
         break;
       }
+      
       
     }
     node->data = v;
@@ -206,6 +210,10 @@ void ComputerPlayer::runAlgorithm(){
 int getresult(char results []) {
 
   int score = 0;
+
+  if ( results[0] == results[1] && results[0] == results[2] && results[0] == results[3] && results[0] != ' ') {
+    score = 100;
+  }
 
 
   if ( results[0] == results[1] && results[0] == results[2] && results[3] == ' ' && results[0] != ' ') {
