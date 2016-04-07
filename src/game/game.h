@@ -15,18 +15,18 @@ struct Game {
 
 	Player *currentPlayer;
 
-	// functions to build and creat the board main.cpp
+	// functions to build and create the board main.cpp
 	void construct_game();
 	void play_game();
 
-	//helper functions defined in utils.cpp
+	// helper functions defined in utils.cpp
 	void changePlayers();
 	bool makeMove( int col );
 	bool isFull();
 	Player * getWinner();
 	Player * getCurrentPlayer();
 
-	//functions for diplaying the board it is defined in the logger.cpp file
+	// functions for displaying the board, it is defined in the logger.cpp file
 	void display_board();
 
 
