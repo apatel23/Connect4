@@ -9,7 +9,7 @@ using namespace std;
 
 int win = 100;
 int loss = -100;
-const int DEPTH_TOTAL = 8;
+const int DEPTH_TOTAL = 10;
 const int ROWS = 6;
 const int COLS = 7;
 
@@ -27,7 +27,14 @@ void ComputerPlayer::move(ConnectFourBoard * b) {
   runAlgorithm( nn );
   //checkNode(nn, board, true);
   int move = findBestnode(nn);
-  cout << "Will make the best move with the following " << move << endl;
+  //cout << "Will make the best move with the following " << move << endl;
+  //cout << "Analyze(9)" << endl;
+  //int an;
+  //cin >> an;
+  //cin.ignore();
+  //if( an == 9 ) {
+  //  checkNode(nn, board, true);
+  //}
   b->makeMove(move, Player);
   //cout << "Will make the best move with the following " << move << endl;
 }
@@ -46,8 +53,11 @@ void ComputerPlayer::setDepth(int depth) {
 int ComputerPlayer::findBestnode(Node * n) {
   int a = 0;
   double max = -200;
+  if (n->nodes == nullptr) return a;
   for(int i = 0; i < 7; i++) {
-
+    if( n->nodes[i] == nullptr) {
+      continue;
+    }
     if(n->nodes[i]->data > max){
       max = n->nodes[i]->data;
       a = i;
@@ -132,19 +142,22 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
 
   // if at the end of the search
   result = getHeuristic(b);
-  /*
+  
+
   if( MaxPlayer ) {
-    if( result < 0) {
+    if( result < -29) {
       node->data = result;
       return result;
     }
   } else {
-    if(result > 0 ) {
+    if(result > 29 ) {
       node->data = result;
       return result;
     }
   }
-  */
+  
+  
+  
 
   if ( depth_run == 0 ) {
     node->data = result;
@@ -169,12 +182,9 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       continue;
     }
 
-    if ( bo.getWinner() != ' ') {
-      foundWinner = true;
-    }
 
     result = getHeuristic(bo);
-    if ( result > 100) {
+    if ( result >= 100) {
       foundWinner = true;
     }
 
@@ -187,11 +197,12 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       v = max(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, false) /* + result */);
       Alpha = max(Alpha, v);
       
-      /*
-      if( Beta < Alpha) {
+      
+      if( Beta <= Alpha) {
         break;
       }
-      */
+      
+      
       
       
       
@@ -211,7 +222,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       }
 
     result = getHeuristic(bo);
-    if ( result < -100) {
+    if ( result <= -100) {
       foundWinner = true;
     }
 
@@ -224,11 +235,12 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       v = min(v, AlphaBeta(node->nodes[i], bo, depth_run - 1, Alpha, Beta, true) /*+ result */);
       Beta = min(Beta, v);
       
-      /*
-      if( Beta < Alpha) {
+      
+      if( Beta <= Alpha) {
         break;
       }
-      */
+      
+      
       
       
       
@@ -257,19 +269,19 @@ int getresult(char results []) {
 
 
   if ( results[0] == results[1] && results[0] == results[2] && results[3] == ' ' && results[0] != ' ') {
-    score = 3;
+    score = 10;
   }
 
   if ( results[0] == results[1] && results[0] == results[3] && results[2] == ' ' && results[0] != ' ') {
-    score = 3;
+    score = 10;
   }
 
   if ( results[0] == results[2] && results[0] == results[3] && results[1] == ' ' && results[0] != ' ') {
-    score = 3;
+    score = 10;
   }
 
   if ( results[1] == results[2] && results[1] == results[3] && results[0] == ' ' && results[1] != ' ' ) {
-    score = 3;
+    score = 10;
   }
 
 
