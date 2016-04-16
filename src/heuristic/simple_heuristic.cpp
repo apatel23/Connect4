@@ -11,7 +11,7 @@ SimpleHeuristic::SimpleHeuristic(int threshold, bool thresh, int depth) {
   THRESHOLD = threshold;
   t_hold = thresh;
   DEPTH = depth;
-  WINNER = 1000;
+  WINNER = 100;
 }
 
 
@@ -19,22 +19,27 @@ int getresult(char results []) {
 
   int score = 0;
 
+  if ( results[0] == results[1] && results[0] == results[2] && results[0] == results[3] && results[0] != ' ') {
+    score = 100;
+  }
+
+
   if ( results[0] == results[1] && results[0] == results[2] && results[3] == ' ' && results[0] != ' ') {
-    score += 10;
+    score = 10;
+  }
+
+  if ( results[0] == results[1] && results[0] == results[3] && results[2] == ' ' && results[0] != ' ') {
+    score = 10;
+  }
+
+  if ( results[0] == results[2] && results[0] == results[3] && results[1] == ' ' && results[0] != ' ') {
+    score = 10;
   }
 
   if ( results[1] == results[2] && results[1] == results[3] && results[0] == ' ' && results[1] != ' ' ) {
-    score += 10;
+    score = 10;
   }
 
-  if ( results[0] == results[1] && results[0] == results[2] && results[0] == results[3] && results[0] != ' ') {
-    if( results[0] == 'X') {
-      return INT_MAX;
-    } else {
-      return INT_MIN;
-    }
-
-  }
 
   if( score > 0 ) {
     if( results[0] == ' '){
@@ -52,6 +57,7 @@ int getresult(char results []) {
     }
   }
 
+
   return score;
 }
 
@@ -59,7 +65,6 @@ int getresult(char results []) {
 
 
 int SimpleHeuristic::getHeuristic(ConnectFourBoard bo) {
-
   int finalS = 0;
   int score = 0;
   char results [4];
@@ -117,5 +122,5 @@ int SimpleHeuristic::getHeuristic(ConnectFourBoard bo) {
     }
   }
 
-  return finalS;  
+  return finalS;  // Didn't find a winner so return a space.
 }

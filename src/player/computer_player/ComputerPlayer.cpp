@@ -161,13 +161,13 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
   if( heuristic->t_hold ) {
     if( MaxPlayer ) {
       if( result < -1 * heuristic->THRESHOLD) {
-        node->data = INT_MIN;
-        return INT_MIN;
+        node->data = result;
+        return result;
       }
     } else {
       if(result > heuristic->THRESHOLD ) {
-        node->data = INT_MAX;
-        return INT_MAX;
+        node->data = result;
+        return result;
       }
     }
   }
@@ -200,13 +200,13 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
 
 
     result = heuristic->getHeuristic(bo);
-    if ( result > heuristic->WINNER ) {
+    if ( result >= heuristic->WINNER ) {
       foundWinner = true;
     }
 
     if( foundWinner ) {
-      node->nodes[i]->data = heuristic->MAX_SCORE;
-      v = heuristic->MAX_SCORE;
+      node->nodes[i]->data = heuristic->WINNER;
+      v = heuristic->WINNER;
       break;
     }
 
@@ -233,13 +233,13 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       }
 
     result = heuristic->getHeuristic(bo);
-    if ( result < -1 * heuristic->WINNER) {
+    if ( result <= -1 * heuristic->WINNER) {
       foundWinner = true;
     }
 
     if( foundWinner ) {
-      node->nodes[i]->data = -1 * heuristic->MAX_SCORE;
-      v = -1 * heuristic->MAX_SCORE;
+      node->nodes[i]->data = -1 * heuristic->WINNER;
+      v = -1 * heuristic->WINNER;
       break;
     }
 
