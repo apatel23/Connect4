@@ -3,18 +3,17 @@
 
 using namespace std;
 
-void Game::construct_game(){
-	theBoard = new ConnectFourBoard;
-	playerone = new ComputerPlayer( true, theBoard);
-	playertwo = new HumanPlayer( false, theBoard);
+void Game::construct_game(ConnectFourBoard* B, Player* p_one, Player* p_two){
+
+	theBoard = B;
+	playerone = p_one;
+	playertwo = p_two;
 
 	currentPlayer = playerone;
 }
 
 void Game::play_game(){
-	//construct the game
-	construct_game();
-	//display_board();
+	display_board();
 
 	while( theBoard->getWinner() == ' ' && !theBoard->isFull() ) {
 

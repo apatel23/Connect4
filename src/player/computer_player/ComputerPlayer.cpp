@@ -10,8 +10,18 @@ using namespace std;
 int win = 100;
 int loss = -100;
 const int DEPTH_TOTAL = 10;
+
 const int ROWS = 6;
 const int COLS = 7;
+
+
+void ComputerPlayer::setHeuristic(Heuristic * h) {
+  heuristic = h;
+}
+
+
+
+
 
 void ComputerPlayer::move(ConnectFourBoard * b) {
 
@@ -25,7 +35,7 @@ void ComputerPlayer::move(ConnectFourBoard * b) {
   board = *b;
   Node * nn = new Node;
   runAlgorithm( nn );
-  //checkNode(nn, board, true);
+  //checkNode(nn, board, true)
   int move = findBestnode(nn);
   //cout << "Will make the best move with the following " << move << endl;
   //cout << "Analyze(9)" << endl;
@@ -53,14 +63,22 @@ void ComputerPlayer::setDepth(int depth) {
 int ComputerPlayer::findBestnode(Node * n) {
   int a = 0;
   double max = -200;
+  double min = 200;
   if (n->nodes == nullptr) return a;
   for(int i = 0; i < 7; i++) {
     if( n->nodes[i] == nullptr) {
       continue;
     }
-    if(n->nodes[i]->data > max){
-      max = n->nodes[i]->data;
-      a = i;
+    if( Player ) {
+      if(n->nodes[i]->data > max && n->nodes[i]->valid){
+        max = n->nodes[i]->data;
+        a = i;
+      }
+    } else {
+      if(n->nodes[i]->data < min && n->nodes[i]->valid){
+        min = n->nodes[i]->data;
+        a = i;
+      }
     }
   }
 
@@ -105,7 +123,7 @@ ComputerPlayer::ComputerPlayer(bool Player, ConnectFourBoard *b) {
   this->Player = Player;
   root = new Node;
   board = *b;
-  setDepth(DEPTH_TOTAL);
+  //setDepth(heuristic->DEPTH);
   //runAlgorithm(root);
   //n = root;
   //checkNode(root, board, true);
@@ -141,18 +159,19 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
   ConnectFourBoard bo;
 
   // if at the end of the search
-  result = getHeuristic(b);
+  result = heuristic->getHeuristic(b);
   
-
-  if( MaxPlayer ) {
-    if( result < -29) {
-      node->data = result;
-      return result;
-    }
-  } else {
-    if(result > 29 ) {
-      node->data = result;
-      return result;
+  if( heuristic->t_hold ) {
+    if( MaxPlayer ) {
+      if( result < -1 * heuristic->THRESHOLD) {
+        node->data = result;
+        return result;
+      }
+    } else {
+      if(result > heuristic->THRESHOLD ) {
+        node->data = result;
+        return result;
+      }
     }
   }
   
@@ -178,19 +197,19 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
     madeMove = bo.makeMove(i, MaxPlayer);
     // check to see if a move was made it would be false if a certain column is full
     if( !madeMove ) {
-      node->nodes[i]->data = -200;
+      node->nodes[i]->valid = false;
       continue;
     }
 
 
-    result = getHeuristic(bo);
+    result = heuristic->getHeuristic(bo);
     if ( result >= 100) {
       foundWinner = true;
     }
 
     if( foundWinner ) {
-      node->nodes[i]->data = 100;
-      v = 100;
+      node->nodes[i]->data = heuristic->MAX_SCORE;
+      v = heuristic->MAX_SCORE;
       break;
     }
 
@@ -201,12 +220,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       if( Beta <= Alpha) {
         break;
       }
-      
-      
-      
-      
-      
-      
+
     }
     node->data = v;
     return v;
@@ -217,18 +231,18 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       madeMove = bo.makeMove(i, MaxPlayer);
       // check to see if a move was made it would be false if a certain column is full
       if( !madeMove ) {
-        node->nodes[i]->data = 200;
+        node->nodes[i]->valid = false;
         continue;
       }
 
-    result = getHeuristic(bo);
+    result = heuristic->getHeuristic(bo);
     if ( result <= -100) {
       foundWinner = true;
     }
 
     if( foundWinner ) {
-      node->nodes[i]->data = -100;
-      v = -100;
+      node->nodes[i]->data = -1 * heuristic->MAX_SCORE;
+      v = -1 * heuristic->MAX_SCORE;
       break;
     }
 
@@ -239,11 +253,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       if( Beta <= Alpha) {
         break;
       }
-      
-      
-      
-      
-      
+
     }
     node->data = v;
     return v; 
@@ -255,114 +265,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
 
 void ComputerPlayer::runAlgorithm(Node * b){
   cout << "Tom" << endl;
-  root->data = AlphaBeta(b, board, depth - 1, loss, win, true );
+  setDepth(heuristic->DEPTH);
+  root->data = AlphaBeta(b, board, depth - 1, loss, win, Player );
   cout << "Jerry" << endl; 
-}
-
-int getresult(char results []) {
-
-  int score = 0;
-
-  if ( results[0] == results[1] && results[0] == results[2] && results[0] == results[3] && results[0] != ' ') {
-    score = 100;
-  }
-
-
-  if ( results[0] == results[1] && results[0] == results[2] && results[3] == ' ' && results[0] != ' ') {
-    score = 10;
-  }
-
-  if ( results[0] == results[1] && results[0] == results[3] && results[2] == ' ' && results[0] != ' ') {
-    score = 10;
-  }
-
-  if ( results[0] == results[2] && results[0] == results[3] && results[1] == ' ' && results[0] != ' ') {
-    score = 10;
-  }
-
-  if ( results[1] == results[2] && results[1] == results[3] && results[0] == ' ' && results[1] != ' ' ) {
-    score = 10;
-  }
-
-
-  if( score > 0 ) {
-    if( results[0] == ' '){
-      if( results[1] == 'X'){
-        return score ;//* -1;
-      }else{
-        return score * -1;
-      }
-    }else{
-      if( results[0] == 'X'){
-        return score  ;//* -1;
-      }else{
-        return score * -1;
-      }
-    }
-  }
-
-
-  return score;
-}
-
-int ComputerPlayer::getHeuristic( ConnectFourBoard bo) {
-
-  int finalS = 0;
-  int score = 0;
-  char results [4];
-
-  for( int r = 0; r < ROWS; r++ )
-  {
-    for( int c = 0; c < COLS - 3; c++ )
-    {
-      results[0] = bo.board[ r ][ c ];
-      results[1] = bo.board[ r ][ c + 1];
-      results[2] = bo.board[ r ][ c + 2];
-      results[3] = bo.board[ r ][ c + 3];
-      score = getresult(results);
-      finalS += score;
-    }
-  }
-
-
-  for( int r = 0; r < ROWS - 3; r++ )
-  {
-    for( int c = 0; c < COLS; c++ )
-    {
-      results[0] = bo.board[ r ][ c ];
-      results[1] = bo.board[ r + 1][ c ];
-      results[2] = bo.board[ r + 2][ c ];
-      results[3] = bo.board[ r + 3][ c ];
-      score = getresult(results);
-      finalS += score;
-    }
-  }
-
-  for( int r = 0; r < ROWS - 3; r++ )
-  {
-    for( int c = 0; c < COLS - 3; c++ )
-    {
-      results[0] = bo.board[ r ][ c ];
-      results[1] = bo.board[ r + 1 ][ c + 1 ];
-      results[2] = bo.board[ r + 2 ][ c + 2 ];
-      results[3] = bo.board[ r + 3 ][ c + 3 ];
-      score = getresult(results);
-      finalS += score;
-    }
-  }
-
-  for( int r = 0; r < ROWS - 3; r++ )
-  {
-    for( int c = 3; c < COLS; c++ )
-    {
-      results[0] = bo.board[ r ][ c ];
-      results[1] = bo.board[ r + 1 ][ c - 1 ];
-      results[2] = bo.board[ r + 2 ][ c - 2 ];
-      results[3] = bo.board[ r + 3 ][ c - 3 ];
-      score = getresult(results);
-      finalS += score;
-    }
-  }
-
-  return finalS;  // Didn't find a winner so return a space.
 }

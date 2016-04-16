@@ -5,7 +5,7 @@ using namespace std;
 struct Node {
 	Node ** nodes = nullptr;
 	double data;
-	bool explored = false;
+	bool valid = true;
 	Node();
 
 	void addNode(bool type);

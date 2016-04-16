@@ -4,6 +4,9 @@
 #include "../player/player.h"
 #include "../player/computer_player/ComputerPlayer.h"
 #include "../player/human_player/HumanPlayer.h"
+#include "../heuristic/heuristic.h"
+#include "../heuristic/simple_heuristic.h"
+
 
 using namespace std;
 
@@ -16,7 +19,7 @@ struct Game {
 	Player *currentPlayer;
 
 	// functions to build and create the board main.cpp
-	void construct_game();
+	void construct_game(ConnectFourBoard* theBoard, Player* p_one, Player* p_two);
 	void play_game();
 
 	// helper functions defined in utils.cpp

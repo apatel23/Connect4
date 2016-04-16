@@ -4,6 +4,18 @@
 
 using namespace std;
 
+void color_char(char a) {
+  if( a == 'X') {
+    cout << "\033[0;31mX\033[0m"; 
+  } else if (a == 'O') {
+    cout << "\033[0;34mO\033[0m"; 
+  } else {
+    cout << a;
+  }
+}
+
+
+
 void Game::display_board() {
   // Print a bunch of newline characters so the board is
   // always at the bottom of the window. If it prints/scrolls
@@ -35,7 +47,9 @@ void Game::display_board() {
     cout << "|";
     for( int c = 0; c < ConnectFourBoard::COLS; c++ )
     {
-      cout << " " << theBoard->getPlayerAt( r, c ) << " |";
+      cout << " ";
+      color_char(theBoard->getPlayerAt( r, c )) ;
+      cout << " |";
     }
     cout << endl;
 

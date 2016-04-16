@@ -25,7 +25,7 @@ $(NAME): $(OBJS)
 
 # Build and run the program.
 run: $(NAME)
-	./$(NAME) example_simulation
+	./$(NAME)
 
 # Remove all generated files.
 clean:

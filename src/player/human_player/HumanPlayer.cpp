@@ -27,3 +27,7 @@ void HumanPlayer::move(ConnectFourBoard *b) {
 HumanPlayer::HumanPlayer(bool Player, ConnectFourBoard *b) {
   this->Player = Player;
 }
+
+void HumanPlayer::setHeuristic(Heuristic* h) {
+  return;
+}
