@@ -19,7 +19,7 @@ struct Game {
 	Player *currentPlayer;
 
 	// functions to build and create the board main.cpp
-	void construct_game(ConnectFourBoard* theBoard, Player* p_one, Player* p_two);
+	void construct_game(ConnectFourBoard* B, Player* p_one, Player* p_two);
 	void play_game();
 
 	// helper functions defined in utils.cpp

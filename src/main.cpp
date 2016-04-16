@@ -44,7 +44,7 @@ int main( int argc, char** argv)
 	Heuristic * h_two;
 
 	if( fo.strategy == HeuristicStrategy::SIMPLE) {
-		h_one = new SimpleHeuristic(100, 29, true, fo.max_depth);
+		h_one = new SimpleHeuristic(29, true, fo.max_depth);
 	}
 
 	if( fo.whovwho == WhoVWho::PvP) {
@@ -61,7 +61,7 @@ int main( int argc, char** argv)
 		cout << "Depth Search for Computer Player 2: ";
 		cin >> d_two;
 		cin.ignore();
-		h_two = new SimpleHeuristic(100, 29, true, d_two);
+		h_two = new SimpleHeuristic(29, true, d_two);
 
 		p_one = new ComputerPlayer(true, theBoard);
 		p_two = new ComputerPlayer(false, theBoard);

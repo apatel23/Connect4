@@ -1,15 +1,17 @@
 #include "simple_heuristic.h"
+#include <climits>
 
 using namespace std;
 
 const int ROWS = 6;
 const int COLS = 7;
 
-SimpleHeuristic::SimpleHeuristic(int max_score, int threshold, bool thresh, int depth) {
-  MAX_SCORE = max_score;
+SimpleHeuristic::SimpleHeuristic(int threshold, bool thresh, int depth) {
+  MAX_SCORE = INT_MAX;
   THRESHOLD = threshold;
   t_hold = thresh;
   DEPTH = depth;
+  WINNER = 1000;
 }
 
 
@@ -26,7 +28,12 @@ int getresult(char results []) {
   }
 
   if ( results[0] == results[1] && results[0] == results[2] && results[0] == results[3] && results[0] != ' ') {
-    score = 100;
+    if( results[0] == 'X') {
+      return INT_MAX;
+    } else {
+      return INT_MIN;
+    }
+
   }
 
   if( score > 0 ) {

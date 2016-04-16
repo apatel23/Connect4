@@ -11,6 +11,8 @@ struct Heuristic {
 	int MAX_SCORE;
 	int THRESHOLD;
 
+	int WINNER;
+
 	bool t_hold;
 
 	virtual int getHeuristic(ConnectFourBoard bo) = 0;

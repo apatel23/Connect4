@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include "logger_node.h"
+#include <climits>
 
 
 using namespace std;
@@ -18,10 +19,6 @@ const int COLS = 7;
 void ComputerPlayer::setHeuristic(Heuristic * h) {
   heuristic = h;
 }
-
-
-
-
 
 void ComputerPlayer::move(ConnectFourBoard * b) {
 
@@ -62,8 +59,8 @@ void ComputerPlayer::setDepth(int depth) {
 
 int ComputerPlayer::findBestnode(Node * n) {
   int a = 0;
-  double max = -200;
-  double min = 200;
+  double max = INT_MIN;
+  double min = INT_MAX;
   if (n->nodes == nullptr) return a;
   for(int i = 0; i < 7; i++) {
     if( n->nodes[i] == nullptr) {
@@ -164,13 +161,13 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
   if( heuristic->t_hold ) {
     if( MaxPlayer ) {
       if( result < -1 * heuristic->THRESHOLD) {
-        node->data = result;
-        return result;
+        node->data = INT_MIN;
+        return INT_MIN;
       }
     } else {
       if(result > heuristic->THRESHOLD ) {
-        node->data = result;
-        return result;
+        node->data = INT_MAX;
+        return INT_MAX;
       }
     }
   }
@@ -203,7 +200,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
 
 
     result = heuristic->getHeuristic(bo);
-    if ( result >= 100) {
+    if ( result > heuristic->WINNER ) {
       foundWinner = true;
     }
 
@@ -236,7 +233,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       }
 
     result = heuristic->getHeuristic(bo);
-    if ( result <= -100) {
+    if ( result < -1 * heuristic->WINNER) {
       foundWinner = true;
     }
 
@@ -264,8 +261,6 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
 
 
 void ComputerPlayer::runAlgorithm(Node * b){
-  cout << "Tom" << endl;
   setDepth(heuristic->DEPTH);
   root->data = AlphaBeta(b, board, depth - 1, loss, win, Player );
-  cout << "Jerry" << endl; 
 }
