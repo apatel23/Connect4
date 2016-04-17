@@ -25,12 +25,12 @@ int getresult(char results []) {
 
 
   if ( results[0] == results[1] && results[0] == results[2] && results[3] == ' ' && results[0] != ' ') {
-    score += 10;
+    score += 2;
   }
 
 
   if ( results[0] == results[1] && results[0] != ' ') {
-    score += 5;
+    score += 1;
   }
 
 /*
@@ -46,7 +46,7 @@ int getresult(char results []) {
 
 */
 
-    
+
     if( results[0] == ' '){
       if( results[1] == 'X'){
         return score ;//* -1;
