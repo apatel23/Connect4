@@ -16,14 +16,14 @@ using namespace std;
 
 void print_usage() {
   cout <<
-      "Usage: mem-sim [options] filename\n"
+      "Usage: ./connect_4 [options]\n"
       "\n"
       "Options:\n"
       "\n"
       "  -s, --strategy (SIMPLE)\n"
       "      The heuristic strategy to use. At the moment only SIMPLE.\n"
       "\n"
-      "  -f, --max-depth <positive integer>\n"
+      "  -d --max-depth <positive integer>\n"
       "      The maximum number of depths the AI will serach.\n"
       "\n"
       "  -w, --who (PvP | CvP | CvC) \n"
@@ -97,6 +97,7 @@ bool parse_flags(int argc, char** argv, FlagOptions& flags) {
 
       case 'd':
         flags.max_depth = atoi(optarg);
+        //cout << flags.max_depth << endl;
         break;
 
       case '?':

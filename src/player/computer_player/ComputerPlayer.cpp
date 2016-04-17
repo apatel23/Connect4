@@ -42,6 +42,22 @@ void ComputerPlayer::move(ConnectFourBoard * b) {
   //if( an == 9 ) {
   //  checkNode(nn, board, true);
   //}
+/*
+  if( move == -1 ) {
+    if( b->makeMove(3, Player) ) {
+      return;
+    }
+    if( b->makeMove(2, Player) ) {
+      return;
+    }
+    if( b->makeMove(4, Player) ) {
+      return;
+    }
+
+  }
+*/
+
+
   b->makeMove(move, Player);
   //cout << "Will make the best move with the following " << move << endl;
 }
@@ -70,6 +86,7 @@ int ComputerPlayer::findBestnode(Node * n) {
       if(n->nodes[i]->data > max && n->nodes[i]->valid){
         max = n->nodes[i]->data;
         a = i;
+        cout << "Node: " << i << " Value: " << n->nodes[i]->data << endl; ////////////////////////////////////////////////////////////////////////
       }
     } else {
       if(n->nodes[i]->data < min && n->nodes[i]->valid){
@@ -78,7 +95,11 @@ int ComputerPlayer::findBestnode(Node * n) {
       }
     }
   }
-
+/*
+  if( a == 0 && max == 0) {
+    return -1;
+  }
+*/
   return a;
 }
 
@@ -217,6 +238,7 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       if( Beta <= Alpha) {
         break;
       }
+      
 
     }
     node->data = v;
@@ -247,9 +269,11 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       Beta = min(Beta, v);
       
       
+      
       if( Beta <= Alpha) {
         break;
       }
+      
 
     }
     node->data = v;

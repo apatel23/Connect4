@@ -21,7 +21,7 @@ void Game::display_board() {
   // always at the bottom of the window. If it prints/scrolls
   // fast enough, it will almost look like it draws in place.
   // Why 16? Your console window may need more ... or less ...
-  for( int i = 0; i < 16; i++ )  cout << endl;
+  for( int i = 0; i < 10; i++ )  cout << endl;
 
   // Draw column headers (starting at 1 because not all
   // Connect Four players are Computer Science majors).

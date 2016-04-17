@@ -20,28 +20,33 @@ int getresult(char results []) {
   int score = 0;
 
   if ( results[0] == results[1] && results[0] == results[2] && results[0] == results[3] && results[0] != ' ') {
-    score = 100;
+    score += 500;
   }
 
 
   if ( results[0] == results[1] && results[0] == results[2] && results[3] == ' ' && results[0] != ' ') {
-    score = 10;
+    score += 10;
   }
 
-  if ( results[0] == results[1] && results[0] == results[3] && results[2] == ' ' && results[0] != ' ') {
-    score = 10;
+
+  if ( results[0] == results[1] && results[0] != ' ') {
+    score += 5;
   }
+
+/*
 
   if ( results[0] == results[2] && results[0] == results[3] && results[1] == ' ' && results[0] != ' ') {
     score = 10;
   }
 
+
   if ( results[1] == results[2] && results[1] == results[3] && results[0] == ' ' && results[1] != ' ' ) {
-    score = 10;
+    score += 10;
   }
 
+*/
 
-  if( score > 0 ) {
+    
     if( results[0] == ' '){
       if( results[1] == 'X'){
         return score ;//* -1;
@@ -55,7 +60,6 @@ int getresult(char results []) {
         return score * -1;
       }
     }
-  }
 
 
   return score;
