@@ -41,7 +41,7 @@ struct FlagOptions {
   /**
    * The maximum number of frames that can be allocated to a process.
    */
-  int max_depth = 8;
+  int max_depth = 9;
 };
 
 
