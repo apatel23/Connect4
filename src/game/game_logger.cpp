@@ -28,7 +28,7 @@ void Game::display_board() {
     cout << " ";
   for( int c = 1; c <= ConnectFourBoard::COLS; c++ )
   {
-    cout << " " << c << "  ";
+    cout << "  " << c << "   ";
   }
   cout << endl;
 
@@ -39,7 +39,7 @@ void Game::display_board() {
     cout << "|";
     for( int c = 1; c <= ConnectFourBoard::COLS; c++ )
     {
-      cout << "   |";
+      cout << "     |";
     }
     cout << endl;
 
@@ -47,9 +47,9 @@ void Game::display_board() {
     cout << "|";
     for( int c = 0; c < ConnectFourBoard::COLS; c++ )
     {
-      cout << " ";
+      cout << "  ";
       color_char(theBoard->getPlayerAt( r, c )) ;
-      cout << " |";
+      cout << "  |";
     }
     cout << endl;
 
@@ -57,7 +57,7 @@ void Game::display_board() {
     cout << "|";
     for( int c = 1; c <= ConnectFourBoard::COLS; c++ )
     {
-      cout << "   |";
+      cout << "     |";
     }
     cout << endl;
 
@@ -65,7 +65,7 @@ void Game::display_board() {
     cout << "+";
     for( int c = 1; c <= ConnectFourBoard::COLS; c++ )
     {
-      cout << "---+";
+      cout << "-----+";
     }
     cout << endl;
   }
