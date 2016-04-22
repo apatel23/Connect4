@@ -11,7 +11,7 @@ struct Heuristic {
 	int MAX_SCORE;
 	int THRESHOLD;
 
-	int WINNER;
+	bool WINNER;
 
 	bool t_hold;
 

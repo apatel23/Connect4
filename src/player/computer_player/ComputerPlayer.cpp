@@ -172,7 +172,6 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
   */
   int i;
   bool madeMove;
-  bool foundWinner = false;
   int result = 0;
   ConnectFourBoard bo;
 
@@ -221,13 +220,11 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
 
 
     result = heuristic->getHeuristic(bo);
-    if ( result >= heuristic->WINNER ) {
-      foundWinner = true;
-    }
 
-    if( foundWinner ) {
-      node->nodes[i]->data = heuristic->WINNER;
-      v = heuristic->WINNER;
+
+    if( heuristic->WINNER ) {
+      node->nodes[i]->data = heuristic->MAX_SCORE;
+      v = heuristic->MAX_SCORE;
       break;
     }
 
@@ -255,13 +252,11 @@ int ComputerPlayer::AlphaBeta(Node * node, ConnectFourBoard b, int depth_run, in
       }
 
     result = heuristic->getHeuristic(bo);
-    if ( result <= -1 * heuristic->WINNER) {
-      foundWinner = true;
-    }
 
-    if( foundWinner ) {
-      node->nodes[i]->data = -1 * heuristic->WINNER;
-      v = -1 * heuristic->WINNER;
+
+    if( heuristic->WINNER ) {
+      node->nodes[i]->data = -1 * heuristic->MAX_SCORE;
+      v = -1 * heuristic->MAX_SCORE;
       break;
     }
 

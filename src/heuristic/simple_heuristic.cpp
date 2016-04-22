@@ -11,16 +11,17 @@ SimpleHeuristic::SimpleHeuristic(int threshold, bool thresh, int depth) {
   THRESHOLD = threshold;
   t_hold = thresh;
   DEPTH = depth;
-  WINNER = 100;
+  WINNER = false;
 }
 
 
-int getresult(char results []) {
+int SimpleHeuristic::getresult(char results []) {
 
   int score = 0;
 
   if ( results[0] == results[1] && results[0] == results[2] && results[0] == results[3] && results[0] != ' ') {
     score += 500;
+    WINNER = true;
   }
 
 
@@ -72,6 +73,7 @@ int SimpleHeuristic::getHeuristic(ConnectFourBoard bo) {
   int finalS = 0;
   int score = 0;
   char results [4];
+  WINNER = false;
 
   for( int r = 0; r < ROWS; r++ )
   {
