@@ -12,6 +12,7 @@
 #include <string>     // The string class
 #include <cmath>      // Standard math functions
 #include <ctime>      // To use the system clock
+#include <time.h>
 using namespace std;  // We will almost always use the standard namespace.
 
 #include "game/game.h"
@@ -35,6 +36,8 @@ int main( int argc, char** argv)
 		return EXIT_FAILURE;
 	}
 
+	srand(time(NULL));
+
 	ConnectFourBoard *theBoard = new ConnectFourBoard;
 
 	Player* p_one;
@@ -42,6 +45,8 @@ int main( int argc, char** argv)
 
 	Heuristic * h_one;
 	Heuristic * h_two;
+
+	/*
 
 	if( fo.strategy == HeuristicStrategy::SIMPLE) {
 		h_one = new SimpleHeuristic(29, false, fo.max_depth);
@@ -69,13 +74,43 @@ int main( int argc, char** argv)
 		p_one->setHeuristic(h_one);
 		p_two->setHeuristic(h_two);
 
-	}
+	}*/
 
 	//console();
 	//Game::play_game();
 	Game g;
-	g.construct_game(theBoard, p_one, p_two);
-	g.play_game();
+
+	ofstream ofs("data.txt");
+
+	for( int i = 2; i < 3; i++) {
+		for( int j = 2; j < i; i++) {
+			for( int z = 2: z < 10; z++) {
+				theBoard = new ConnectFourBoard;
+				p_one = new ComputerPlayer(true, theBoard);
+				p_two = new ComputerPlayer(false, theBoard);
+
+				h_one = new SimpleHeuristic(29, false, i);
+				h_two = new SimpleHeuristic(29,false,  j);
+
+				p_one->setHeuristic(h_one);
+				p_two->setHeuristic(h_two);
+
+				g.construct_game(theBoard, p_one, p_two);
+				g.play_game();
+			}
+		}
+	}
+
+	ofs.close();
+
+
+
+
+
+
+
+	//g.construct_game(theBoard, p_one, p_two);
+	//g.play_game();
 
 	return EXIT_SUCCESS;
 }

@@ -19,6 +19,8 @@ void Game::play_game(){
 
 		currentPlayer->move(theBoard);
 
+		numMoves++;
+
 		changePlayers();
 		display_board();
 	}

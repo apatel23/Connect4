@@ -16,6 +16,8 @@ struct Game {
 	Player *playerone;
 	Player *playertwo;
 
+	int numMoves = 0;
+
 	Player *currentPlayer;
 
 	// functions to build and create the board main.cpp
