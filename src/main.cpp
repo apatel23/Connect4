@@ -113,7 +113,7 @@ void run_test() {
 
 	ConnectFourBoard *theBoard;
 
-	ofstream ofs("simple_data_depths.txt");
+	ofstream ofs("simple_data_depths_2.txt");
 
 	for( int i = 1; i <= 10; i+=1) {
 		if( i > 1 && i % 2 != 0 ) continue;
