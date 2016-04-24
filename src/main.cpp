@@ -19,6 +19,7 @@ using namespace std;  // We will almost always use the standard namespace.
 #include "board/ConnectFourBoard.h"
 #include "heuristic/heuristic.h"
 #include "heuristic/simple_heuristic.h"
+#include "heuristic/simple_two.h"
 #include "flag_parser/flag_parser.h"
 #include "player/computer_player/ComputerPlayer.h"
 #include "player/human_player/HumanPlayer.h"
@@ -119,7 +120,7 @@ void run_test() {
 		for( int j = 1; j <= 10; j+=1) {
 			if( j > 1 && j % 2 != 0 ) continue;
 			ofs << "Player 1 Depth: " << i << " ,Player 2 Depth: " << j << endl;
-			for( int z = 0; z < 10; z++) {
+			for( int z = 0; z < 25; z++) {
 				Game g;
 				theBoard = new ConnectFourBoard;
 				p_one = new ComputerPlayer(true, theBoard);
