@@ -1,4 +1,4 @@
-#include "simple_heuristic.h"
+#include "simple_two.h"
 #include <climits>
 
 using namespace std;
@@ -6,7 +6,7 @@ using namespace std;
 const int ROWS = 6;
 const int COLS = 7;
 
-SimpleHeuristic::SimpleHeuristic(int threshold, bool thresh, int depth) {
+SimpleTwo::SimpleTwo(int threshold, bool thresh, int depth) {
   MAX_SCORE = INT_MAX;
   THRESHOLD = threshold;
   t_hold = thresh;
@@ -15,7 +15,7 @@ SimpleHeuristic::SimpleHeuristic(int threshold, bool thresh, int depth) {
 }
 
 
-int SimpleHeuristic::getresult(char results []) {
+int SimpleTwo::getresult(char results []) {
 
   int score = 0;
 
@@ -27,11 +27,6 @@ int SimpleHeuristic::getresult(char results []) {
 
   if ( results[0] == results[1] && results[0] == results[2] && results[3] == ' ' && results[0] != ' ') {
     score += 2;
-  }
-
-
-  if ( results[0] == results[1] && results[0] != ' ') {
-    score += 1;
   }
 
 /*
@@ -69,7 +64,7 @@ int SimpleHeuristic::getresult(char results []) {
 
 
 
-int SimpleHeuristic::getHeuristic(ConnectFourBoard bo) {
+int SimpleTwo::getHeuristic(ConnectFourBoard bo) {
   int finalS = 0;
   int score = 0;
   char results [4];

@@ -211,6 +211,7 @@ int ComputerPlayer::AlphaBeta(ConnectFourBoard b, int depth_run, int Alpha, int 
   }
 
   if( depth == depth_run ) {
+    if( v == 0 ) return -1;
     return desired_move;
   }
 

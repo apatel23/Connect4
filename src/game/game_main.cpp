@@ -21,12 +21,14 @@ void Game::play_game(){
 
 		numMoves++;
 
-		changePlayers();
+	 	changePlayers();
 		//display_board();
 	}
 	changePlayers();
-	char winner = theBoard->getWinner();
+
 	/*
+	char winner = theBoard->getWinner();
+	
 	if( winner == ' ' )
 	{
 		cout << "Tie game." << endl;
@@ -36,4 +38,5 @@ void Game::play_game(){
 		cout << "Player " << winner << " wins!" << endl;
 	}
 	*/
+	
 }

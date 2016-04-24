@@ -28,6 +28,8 @@ void gooey();
 void console();
 
 
+void run_test();
+
 
 int main( int argc, char** argv)
 {
@@ -38,6 +40,7 @@ int main( int argc, char** argv)
 
 	srand(time(NULL));
 
+/*
 	ConnectFourBoard *theBoard = new ConnectFourBoard;
 
 	Player* p_one;
@@ -46,7 +49,9 @@ int main( int argc, char** argv)
 	Heuristic * h_one;
 	Heuristic * h_two;
 
-	/*
+
+	Game g;
+
 
 	if( fo.strategy == HeuristicStrategy::SIMPLE) {
 		h_one = new SimpleHeuristic(29, false, fo.max_depth);
@@ -74,18 +79,47 @@ int main( int argc, char** argv)
 		p_one->setHeuristic(h_one);
 		p_two->setHeuristic(h_two);
 
-	}*/
+	}
 
-	//console();
-	//Game::play_game();
-	//Game g;
+	g.construct_game(theBoard, p_one, p_two);
+	g.play_game();
+	
+*/
 
-	ofstream ofs("data_2.txt");
 
-	for( int i = 6; i <= 12; i++) {
-		for( int j = 6; j <= 12; j++) {
+
+
+	run_test();
+
+
+
+
+	//g.construct_game(theBoard, p_one, p_two);
+	//g.play_game();
+
+	return EXIT_SUCCESS;
+}
+
+
+void run_test() {
+
+	Player* p_one;
+	Player* p_two;
+
+	Heuristic * h_one;
+	Heuristic * h_two;
+
+
+	ConnectFourBoard *theBoard;
+
+	ofstream ofs("simple_data_depths.txt");
+
+	for( int i = 1; i <= 12; i+=1) {
+		if( i > 1 && i % 2 != 0 ) continue;
+		for( int j = 1; j <= 12; j+=1) {
+			if( j > 1 && j % 2 != 0 ) continue;
 			ofs << "Player 1 Depth: " << i << " ,Player 2 Depth: " << j << endl;
-			for( int z = 0; z < 20; z++) {
+			for( int z = 0; z < 10; z++) {
 				Game g;
 				theBoard = new ConnectFourBoard;
 				p_one = new ComputerPlayer(true, theBoard);
@@ -120,15 +154,4 @@ int main( int argc, char** argv)
 	}
 
 	ofs.close();
-
-
-
-
-
-
-
-	//g.construct_game(theBoard, p_one, p_two);
-	//g.play_game();
-
-	return EXIT_SUCCESS;
 }
