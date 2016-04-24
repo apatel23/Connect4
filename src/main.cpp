@@ -30,6 +30,7 @@ void console();
 
 
 void run_test();
+void run_test_two();
 
 
 int main( int argc, char** argv)
@@ -90,7 +91,8 @@ int main( int argc, char** argv)
 
 
 
-	run_test();
+	//run_test();
+	run_test_two();
 
 
 
@@ -113,7 +115,7 @@ void run_test() {
 
 	ConnectFourBoard *theBoard;
 
-	ofstream ofs("simple_data_depths_2.txt");
+	ofstream ofs("simple_depth.txt");
 
 	for( int i = 1; i <= 10; i+=1) {
 		if( i > 1 && i % 2 != 0 ) continue;
@@ -152,6 +154,93 @@ void run_test() {
 			}
 			ofs << endl << endl;
 		}
+	}
+
+	ofs.close();
+}
+
+void run_test_two() {
+
+	Player* p_one;
+	Player* p_two;
+
+	Heuristic * h_one;
+	Heuristic * h_two;
+
+
+	ConnectFourBoard *theBoard;
+
+	ofstream ofs("simple1_simple2.txt");
+
+	for( int i = 1; i <= 10; i+=1) {
+		if( i > 1 && i % 2 != 0 ) continue;
+
+			ofs << "Simple_1 vs. Simple_2 Depth: " << i << endl;
+			for( int z = 0; z < 25; z++) {
+				Game g;
+				theBoard = new ConnectFourBoard;
+				p_one = new ComputerPlayer(true, theBoard);
+				p_two = new ComputerPlayer(false, theBoard);
+
+				h_one = new SimpleHeuristic(29, false, i);
+				h_two = new SimpleTwo(29,false,  i);
+
+				p_one->setHeuristic(h_one);
+				p_two->setHeuristic(h_two);
+
+				g.construct_game(theBoard, p_one, p_two);
+				g.play_game();
+
+
+				char winner = theBoard->getWinner();
+				if( winner == ' ' )
+				{
+					ofs << "-,0,";
+				}
+				else
+				{
+					ofs << winner << ",1,";
+					
+				}
+				ofs << g.numMoves << endl;
+				g.numMoves = 0;
+				delete theBoard;
+			}
+
+			ofs << endl << endl;
+			ofs << "Simple_2 vs. Simple_1 Depth: " << i << endl;
+			for( int z = 0; z < 25; z++) {
+				Game g;
+				theBoard = new ConnectFourBoard;
+				p_one = new ComputerPlayer(true, theBoard);
+				p_two = new ComputerPlayer(false, theBoard);
+
+				h_one = new SimpleHeuristic(29, false, i);
+				h_two = new SimpleTwo(29,false,  i);
+
+				p_one->setHeuristic(h_one);
+				p_two->setHeuristic(h_two);
+
+				g.construct_game(theBoard, p_two, p_one);
+				g.play_game();
+
+
+				char winner = theBoard->getWinner();
+				if( winner == ' ' )
+				{
+					ofs << "-,0,";
+				}
+				else
+				{
+					ofs << winner << ",1,";
+					
+				}
+				ofs << g.numMoves << endl;
+				g.numMoves = 0;
+				delete theBoard;
+			}
+			ofs << endl << endl;
+
 	}
 
 	ofs.close();
