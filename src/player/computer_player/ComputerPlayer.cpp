@@ -33,11 +33,7 @@ void ComputerPlayer::move(ConnectFourBoard * b) {
   setDepth(heuristic->DEPTH);
   int move = AlphaBeta(board, depth , loss, win, Player );
 
-  cout << "Move: " << move << endl;
-
-  if( move == -1 ) {
-
-  }
+  //cout << "Move: " << move << endl;
 
 
   while( !b->makeMove(move, Player) ) {

@@ -78,13 +78,15 @@ int main( int argc, char** argv)
 
 	//console();
 	//Game::play_game();
-	Game g;
+	//Game g;
 
-	ofstream ofs("data.txt");
+	ofstream ofs("data_2.txt");
 
-	for( int i = 2; i < 3; i++) {
-		for( int j = 2; j < i; i++) {
-			for( int z = 2: z < 10; z++) {
+	for( int i = 6; i <= 12; i++) {
+		for( int j = 6; j <= 12; j++) {
+			ofs << "Player 1 Depth: " << i << " ,Player 2 Depth: " << j << endl;
+			for( int z = 0; z < 20; z++) {
+				Game g;
 				theBoard = new ConnectFourBoard;
 				p_one = new ComputerPlayer(true, theBoard);
 				p_two = new ComputerPlayer(false, theBoard);
@@ -97,7 +99,23 @@ int main( int argc, char** argv)
 
 				g.construct_game(theBoard, p_one, p_two);
 				g.play_game();
+
+
+				char winner = theBoard->getWinner();
+				if( winner == ' ' )
+				{
+					ofs << "-,0,";
+				}
+				else
+				{
+					ofs << winner << ",1,";
+					
+				}
+				ofs << g.numMoves << endl;
+				g.numMoves = 0;
+				delete theBoard;
 			}
+			ofs << endl << endl;
 		}
 	}
 
