@@ -1,0 +1,259 @@
+,
+win,0.0
+lost,0.0
+tie,0.0
+Avg Moves,0.0
+Total Moves,1
+
+1,1
+win,0.8
+lost,0.2
+tie,0.0
+Avg Moves,8.88
+Total Moves,25
+
+1,2
+win,0.0
+lost,1.0
+tie,0.0
+Avg Moves,18.08
+Total Moves,25
+
+1,4
+win,0.04
+lost,0.96
+tie,0.0
+Avg Moves,15.24
+Total Moves,25
+
+1,6
+win,0.24
+lost,0.76
+tie,0.0
+Avg Moves,16.88
+Total Moves,25
+
+1,8
+win,0.04
+lost,0.96
+tie,0.0
+Avg Moves,17.96
+Total Moves,25
+
+1,10
+win,0.0
+lost,1.0
+tie,0.0
+Avg Moves,19.2
+Total Moves,25
+
+2,1
+win,0.92
+lost,0.08
+tie,0.0
+Avg Moves,11.16
+Total Moves,25
+
+2,2
+win,0.48
+lost,0.36
+tie,0.16
+Avg Moves,29.12
+Total Moves,25
+
+2,4
+win,0.04
+lost,0.92
+tie,0.04
+Avg Moves,27.88
+Total Moves,25
+
+2,6
+win,0.24
+lost,0.68
+tie,0.08
+Avg Moves,25.6
+Total Moves,25
+
+2,8
+win,0.48
+lost,0.52
+tie,0.0
+Avg Moves,16.96
+Total Moves,25
+
+2,10
+win,0.28
+lost,0.64
+tie,0.08
+Avg Moves,21.8
+Total Moves,25
+
+4,1
+win,0.96
+lost,0.04
+tie,0.0
+Avg Moves,10.48
+Total Moves,25
+
+4,2
+win,0.6
+lost,0.12
+tie,0.28
+Avg Moves,28.6
+Total Moves,25
+
+4,4
+win,0.6
+lost,0.36
+tie,0.04
+Avg Moves,22.04
+Total Moves,25
+
+4,6
+win,0.32
+lost,0.6
+tie,0.08
+Avg Moves,23.68
+Total Moves,25
+
+4,8
+win,0.24
+lost,0.64
+tie,0.12
+Avg Moves,29.76
+Total Moves,25
+
+4,10
+win,0.28
+lost,0.68
+tie,0.04
+Avg Moves,24.2
+Total Moves,25
+
+6,1
+win,1.0
+lost,0.0
+tie,0.0
+Avg Moves,8.92
+Total Moves,25
+
+6,2
+win,0.44
+lost,0.56
+tie,0.0
+Avg Moves,25.24
+Total Moves,25
+
+6,4
+win,0.68
+lost,0.24
+tie,0.08
+Avg Moves,31.64
+Total Moves,25
+
+6,6
+win,0.0
+lost,0.0
+tie,1.0
+Avg Moves,42.0
+Total Moves,25
+
+6,8
+win,0.24
+lost,0.76
+tie,0.0
+Avg Moves,25.36
+Total Moves,25
+
+6,10
+win,0.04
+lost,0.96
+tie,0.0
+Avg Moves,27.64
+Total Moves,25
+
+8,1
+win,1.0
+lost,0.0
+tie,0.0
+Avg Moves,7.64
+Total Moves,25
+
+8,2
+win,0.72
+lost,0.24
+tie,0.04
+Avg Moves,23.2
+Total Moves,25
+
+8,4
+win,0.4
+lost,0.48
+tie,0.12
+Avg Moves,30.4
+Total Moves,25
+
+8,6
+win,1.0
+lost,0.0
+tie,0.0
+Avg Moves,36.6
+Total Moves,25
+
+8,8
+win,0.48
+lost,0.48
+tie,0.04
+Avg Moves,26.72
+Total Moves,25
+
+8,10
+win,1.0
+lost,0.0
+tie,0.0
+Avg Moves,32.12
+Total Moves,25
+
+10,1
+win,1.0
+lost,0.0
+tie,0.0
+Avg Moves,9.16
+Total Moves,25
+
+10,2
+win,1.0
+lost,0.0
+tie,0.0
+Avg Moves,21.48
+Total Moves,25
+
+10,4
+win,0.84
+lost,0.16
+tie,0.0
+Avg Moves,32.92
+Total Moves,25
+
+10,6
+win,0.68
+lost,0.24
+tie,0.08
+Avg Moves,30.76
+Total Moves,25
+
+10,8
+win,0.44
+lost,0.36
+tie,0.2
+Avg Moves,31.16
+Total Moves,25
+
+10,10
+win,0.28
+lost,0.56
+tie,0.16
+Avg Moves,33.16
+Total Moves,25
+

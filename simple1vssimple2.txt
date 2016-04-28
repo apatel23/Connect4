@@ -1,0 +1,56 @@
+depth,3
+win,1.0
+lost,0.0
+tie,0.0
+Avg Moves,7.25
+Games Played,4
+
+
+depth,1
+win,0.74
+lost,0.26
+tie,0.0
+Avg Moves,9.3
+Games Played,50
+
+
+depth,2
+win,0.56
+lost,0.44
+tie,0.0
+Avg Moves,16.72
+Games Played,50
+
+
+depth,4
+win,0.66
+lost,0.34
+tie,0.0
+Avg Moves,16.02
+Games Played,50
+
+
+depth,6
+win,0.6
+lost,0.4
+tie,0.0
+Avg Moves,14.76
+Games Played,50
+
+
+depth,8
+win,0.54
+lost,0.46
+tie,0.0
+Avg Moves,14.34
+Games Played,50
+
+
+depth,10
+win,0.58
+lost,0.42
+tie,0.0
+Avg Moves,15.9
+Games Played,50
+
+

@@ -1006,3 +1006,4 @@ X,1,31
 O,1,36
 
 
+Player 1 Depth: 10 ,Player 2 Depth: 10
