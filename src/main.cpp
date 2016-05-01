@@ -149,7 +149,7 @@ void run_test_time() {
 				p_two = new ComputerPlayer(false, theBoard);
 
 				h_one = new SimpleHeuristic(29, false, i);
-				h_two = new SimpleTwo(29,false,  i);
+				h_two = new SimpleTwo(29,false,  1);
 
 				p_one->setHeuristic(h_one);
 				p_two->setHeuristic(h_two);
