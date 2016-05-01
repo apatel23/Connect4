@@ -100,6 +100,7 @@ int main( int argc, char** argv)
 	g.construct_game(theBoard, p_one, p_two);
 	g.play_game();
 	*/
+	
 
 
 
@@ -133,7 +134,7 @@ void run_test_time() {
 
 	ConnectFourBoard *theBoard;
 
-	ofstream ofs("time_data_per_depth.txt");
+	ofstream ofs("time_data_per_move.txt");
 
 	double avg_time = 0;
 
@@ -163,7 +164,7 @@ void run_test_time() {
 
 				double elapsed_time = double(end - begin) / CLOCKS_PER_SEC;
 
-				avg_time += elapsed_time;
+				avg_time += elapsed_time/g.numMoves;
 
 				delete theBoard;
 			}
