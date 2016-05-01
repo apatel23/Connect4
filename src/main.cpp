@@ -28,6 +28,8 @@ using namespace std;  // We will almost always use the standard namespace.
 #include "player/computer_player/ComputerPlayer.h"
 #include "player/human_player/HumanPlayer.h"
 
+#include <ctime>
+
 // Function prototypes
 void gooey();
 void console();
@@ -38,9 +40,15 @@ void run_test_two();
 void run_test_three();
 void run_test_four();
 
+void run_test_time();
+
+void run_test_time();
+
 
 int main( int argc, char** argv)
 {
+
+	/*
 	FlagOptions fo;
 	if( !parse_flags(argc, argv, fo) ) {
 		return EXIT_FAILURE;
@@ -48,7 +56,7 @@ int main( int argc, char** argv)
 
 	srand(time(NULL));
 
-/*
+
 	ConnectFourBoard *theBoard = new ConnectFourBoard;
 
 	Player* p_one;
@@ -91,16 +99,17 @@ int main( int argc, char** argv)
 
 	g.construct_game(theBoard, p_one, p_two);
 	g.play_game();
-	
-*/
+	*/
+
 
 
 
 
 	//run_test();
 	//run_test_two();
-	run_test_three();
-	run_test_four();
+	//run_test_three();
+	//run_test_four();
+	run_test_time();
 
 
 
@@ -110,6 +119,63 @@ int main( int argc, char** argv)
 
 	return EXIT_SUCCESS;
 }
+
+
+
+void run_test_time() {
+
+	Player* p_one;
+	Player* p_two;
+
+	Heuristic * h_one;
+	Heuristic * h_two;
+
+
+	ConnectFourBoard *theBoard;
+
+	ofstream ofs("time_data_per_depth.txt");
+
+	double avg_time = 0;
+
+
+	for( int i = 1; i <= 12; i+=1) {
+		//if( i > 1 && i % 2 != 0 ) continue;
+
+			//ofs << "Simple_1 vs. Simple_2 Depth: " << i << endl;
+			for( int z = 0; z < 10; z++) {
+				Game g;
+				theBoard = new ConnectFourBoard;
+				p_one = new ComputerPlayer(true, theBoard);
+				p_two = new ComputerPlayer(false, theBoard);
+
+				h_one = new SimpleHeuristic(29, false, i);
+				h_two = new SimpleTwo(29,false,  i);
+
+				p_one->setHeuristic(h_one);
+				p_two->setHeuristic(h_two);
+
+				g.construct_game(theBoard, p_one, p_two);
+
+
+				clock_t begin = clock();
+				g.play_game();
+				clock_t end = clock();
+
+				double elapsed_time = double(end - begin) / CLOCKS_PER_SEC;
+
+				avg_time += elapsed_time;
+
+				delete theBoard;
+			}
+
+			avg_time = avg_time /10;
+			ofs << i << "," << avg_time << endl;
+			avg_time = 0;
+	}
+
+}
+
+
 
 
 void run_test() {
@@ -129,7 +195,7 @@ void run_test() {
 		if( i > 1 && i % 2 != 0 ) continue;
 		for( int j = 1; j <= 10; j+=1) {
 			if( j > 1 && j % 2 != 0 ) continue;
-			ofs << "Player 1 Depth: " << i << " ,Player 2 Depth: " << j << endl;
+			//ofs << "Player 1 Depth: " << i << " ,Player 2 Depth: " << j << endl;
 			for( int z = 0; z < 25; z++) {
 				Game g;
 				theBoard = new ConnectFourBoard;

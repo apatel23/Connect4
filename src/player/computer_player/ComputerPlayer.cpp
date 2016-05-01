@@ -5,11 +5,13 @@
 #include "logger_node.h"
 #include <climits>
 
+#include <math.h>
+
 
 using namespace std;
 
-int win = 100;
-int loss = -100;
+int win = INT_MAX;
+int loss = -1 * INT_MAX;
 const int DEPTH_TOTAL = 10;
 
 const int ROWS = 6;
@@ -32,6 +34,7 @@ void ComputerPlayer::move(ConnectFourBoard * b) {
   board = *b;
   setDepth(heuristic->DEPTH);
   int move = AlphaBeta(board, depth , loss, win, Player );
+  //cout << move << endl;
 
   //cout << "Move: " << move << endl;
 
@@ -39,6 +42,7 @@ void ComputerPlayer::move(ConnectFourBoard * b) {
   while( !b->makeMove(move, Player) ) {
     move = rand()% COLS;
   }
+  //cout << move << endl;
 }
 
 
@@ -107,8 +111,7 @@ int ComputerPlayer::AlphaBeta(ConnectFourBoard b, int depth_run, int Alpha, int 
   int prune;
   ConnectFourBoard bo;
 
-  // if at the end of the search
-  result = heuristic->getHeuristic(b);
+
   
   if( heuristic->t_hold ) {
     if( MaxPlayer ) {
@@ -126,6 +129,8 @@ int ComputerPlayer::AlphaBeta(ConnectFourBoard b, int depth_run, int Alpha, int 
   
 
   if ( depth_run == 0 ) {
+    // if at the end of the search
+    result = heuristic->getHeuristic(b);
     return result;
   }
   result = 0;
@@ -153,7 +158,7 @@ int ComputerPlayer::AlphaBeta(ConnectFourBoard b, int depth_run, int Alpha, int 
 
     if( heuristic->WINNER ) {
       desired_move = i;
-      v = heuristic->MAX_SCORE;
+      v = heuristic->MAX_SCORE /* * pow(0.95, depth-depth_run) */;
       break;
     }
 
@@ -188,7 +193,7 @@ int ComputerPlayer::AlphaBeta(ConnectFourBoard b, int depth_run, int Alpha, int 
 
     if( heuristic->WINNER ) {
       desired_move = i;
-      v = -1 * heuristic->MAX_SCORE;
+      v = -1 * heuristic->MAX_SCORE /* * pow(0.95, depth-depth_run) */;
       break;
     }
 
@@ -200,13 +205,11 @@ int ComputerPlayer::AlphaBeta(ConnectFourBoard b, int depth_run, int Alpha, int 
       Beta = min(Beta, v);
       
       
-      
       if( Beta <= Alpha) {
         desired_move = i;
         break;
       }
       
-
     }
   }
 

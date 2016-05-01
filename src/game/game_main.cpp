@@ -22,11 +22,12 @@ void Game::play_game(){
 		numMoves++;
 
 	 	changePlayers();
-		//display_board();
+		// display_board();
 	}
 	changePlayers();
 
-	/*
+/*
+	
 	char winner = theBoard->getWinner();
 	
 	if( winner == ' ' )
@@ -37,6 +38,8 @@ void Game::play_game(){
 	{
 		cout << "Player " << winner << " wins!" << endl;
 	}
-	*/
+
+*/
+	
 	
 }
