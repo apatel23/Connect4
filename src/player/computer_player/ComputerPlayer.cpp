@@ -158,7 +158,7 @@ int ComputerPlayer::AlphaBeta(ConnectFourBoard b, int depth_run, int Alpha, int 
 
     if( heuristic->WINNER ) {
       desired_move = i;
-      v = heuristic->MAX_SCORE /* * pow(0.95, depth-depth_run) */;
+      v = heuristic->MAX_SCORE  * pow(0.95, depth-depth_run) ;
       break;
     }
 
@@ -174,6 +174,7 @@ int ComputerPlayer::AlphaBeta(ConnectFourBoard b, int depth_run, int Alpha, int 
         desired_move = i;
         break;
       }
+
       
 
     }
@@ -193,7 +194,7 @@ int ComputerPlayer::AlphaBeta(ConnectFourBoard b, int depth_run, int Alpha, int 
 
     if( heuristic->WINNER ) {
       desired_move = i;
-      v = -1 * heuristic->MAX_SCORE /* * pow(0.95, depth-depth_run) */;
+      v = -1 * heuristic->MAX_SCORE  * pow(0.95, depth-depth_run) ;
       break;
     }
 
@@ -209,6 +210,7 @@ int ComputerPlayer::AlphaBeta(ConnectFourBoard b, int depth_run, int Alpha, int 
         desired_move = i;
         break;
       }
+      
       
     }
   }

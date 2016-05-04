@@ -48,7 +48,7 @@ void run_test_time();
 int main( int argc, char** argv)
 {
 
-	/*
+	
 	FlagOptions fo;
 	if( !parse_flags(argc, argv, fo) ) {
 		return EXIT_FAILURE;
@@ -99,7 +99,7 @@ int main( int argc, char** argv)
 
 	g.construct_game(theBoard, p_one, p_two);
 	g.play_game();
-	*/
+	
 	
 
 
@@ -110,7 +110,7 @@ int main( int argc, char** argv)
 	//run_test_two();
 	//run_test_three();
 	//run_test_four();
-	run_test_time();
+	//run_test_time();
 
 
 
@@ -134,16 +134,16 @@ void run_test_time() {
 
 	ConnectFourBoard *theBoard;
 
-	ofstream ofs("time_data_per_move.txt");
+	ofstream ofs("time_data_per_move_MinMax.txt");
 
 	double avg_time = 0;
 
 
-	for( int i = 1; i <= 12; i+=1) {
+	for( int i = 1; i <= 9; i+=1) {
 		//if( i > 1 && i % 2 != 0 ) continue;
 
 			//ofs << "Simple_1 vs. Simple_2 Depth: " << i << endl;
-			for( int z = 0; z < 10; z++) {
+			for( int z = 0; z < 5; z++) {
 				Game g;
 				theBoard = new ConnectFourBoard;
 				p_one = new ComputerPlayer(true, theBoard);
